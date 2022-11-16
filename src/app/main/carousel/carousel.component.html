@@ -3,10 +3,6 @@
   <a href="#" class="carousel__title">Recommended</a>
   <a href="#" class="carousel__title">Recent</a>
   <div class="carousel__grid">
-    <app-carousel-item></app-carousel-item>
-    <app-carousel-item></app-carousel-item>
-    <app-carousel-item></app-carousel-item>
-    <app-carousel-item></app-carousel-item>
-    <app-carousel-item></app-carousel-item>
+    <app-carousel-item *ngFor="let anime of animesList" [anime]="anime" [desc]="anime.description"></app-carousel-item>
   </div>
 </section>

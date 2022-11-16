@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from "../../api.service";
+import {IAnime} from '../../../interfaces/anime'
 
 @Component({
   selector: 'app-carousel',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarouselComponent implements OnInit {
 
-  constructor() { }
+  animesList: IAnime[] | null = null
 
-  ngOnInit(): void {
+  constructor(private ApiService: ApiService) {
+  }
+
+  ngOnInit():
+    void {
+    this.ApiService.loadAnimes().subscribe(
+      {
+        next: (data) => this.animesList = data,
+        error: (err) => console.log(err),
+      }
+    )
   }
 
 }

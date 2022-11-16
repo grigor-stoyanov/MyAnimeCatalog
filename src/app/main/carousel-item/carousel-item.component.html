@@ -1,16 +1,10 @@
-<div class="carousel__grid__item">
+<div [ngClass]="card" class="carousel__grid__item">
   <figure class="carousel__item__figure">
-    <img class="carousel__item__image"
-         src="https://ichef.bbci.co.uk/news/976/cpsprodpb/F382/production/_123883326_852a3a31-69d7-4849-81c7-8087bf630251.jpg.webp"
-         alt="">
+    <img class="carousel__item__image" src="{{anime!.image}}" alt="">
   </figure>
-  <p class="carousel__item__title">Naruto</p>
-  <p class="carousel__item__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-    culpa deserunt dicta dolore expedita facilis fugit in inventore laboriosam magnam molestiae nihil
-    odio officia praesentium quae, quibusdam similique sunt, veniam! Lorem ipsum dolor sit amet,
-    consectetur adipisicing elit. Adipisci aut blanditiis consequuntur, cupiditate eius excepturi
-    incidunt, molestias quos repellat sapiente similique sit tenetur voluptatibus. A dicta dolore libero
-    modi quia!</p>
-  <button class="btn-primary">Show Details</button>
+  <p class="carousel__item__title">{{anime!.title}}</p>
+  <p class="carousel__item__description">{{descToShow}}</p>
+  <button *ngIf="btnDetails" (click)="showDescription()" class="btn-primary">Show Details</button>
+  <button *ngIf="!btnDetails" (click)="hideDescription()" class="btn-primary">Hide Details</button>
   <button class="btn-secondary">Reviews</button>
 </div>

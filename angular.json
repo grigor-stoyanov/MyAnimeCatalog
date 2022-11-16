@@ -72,7 +72,8 @@
               "browserTarget": "MyAnimeCatalog:build:production"
             },
             "development": {
-              "browserTarget": "MyAnimeCatalog:build:development"
+              "browserTarget": "MyAnimeCatalog:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
