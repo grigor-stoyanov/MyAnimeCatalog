@@ -1,0 +1,21 @@
+.site-header .unauthenticated {
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--px-small-2);
+  padding-top: var(--px-small-4);
+  padding-bottom: var(--px-big-1);
+  border-bottom: var(--clr-danger) 2px solid;
+}
+
+.site-header .unauthenticated time {
+  color: var(--clr-primary)
+}
+
+.site-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

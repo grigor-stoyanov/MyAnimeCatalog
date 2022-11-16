@@ -1,1 +1,131 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --clr-primary: #50b2c0;
+  --clr-darkblue: #0d47d9;
+  --clr-secondary: #feefdd;
+  --clr-grey: #F5F5F5;
+  --clr-bg-dark: #201e1f;
+  --clr-bg: #E5E5E5;
+  --clr-salmon: #faaa8d;
+  --clr-danger: #C14040;
+  --clr-white: #fff;
+  --clr-black: #000;
+  --px-small-1: 8px;
+  --px-small-2: 12px;
+  --px-small-3: 16px;
+  --px-small-4: 32px;
+  --px-big-1: 48px;
+  --px-big-2: 64px;
+  --px-big-3: 128px;
+  --px-big-4: 256px;
+  --ms-scale-1: 1rem;
+  --ms-scale-2: 1.2rem;
+  --ms-scale-3: 1.44rem;
+  --ms-scale-4: 1.728rem;
+  --ms-scale-5: 2.074rem;
+  --ms-scale-6: 2.488rem;
+}
+
+body {
+    background-color: var(--clr-bg);
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+}
+
+.btn-primary {
+    border-radius: var(--px-small-3);
+    padding: var(--px-small-1) var(--px-small-3);
+    background-color: var(--clr-primary);
+    color: var(--clr-darkblue);
+    border:none;
+}
+
+.btn-secondary {
+    border-radius: var(--px-small-3);
+    padding: var(--px-small-1) var(--px-small-3);
+    background-color: var(--clr-salmon);
+    color: var(--clr-darkblue);
+    border:none
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
