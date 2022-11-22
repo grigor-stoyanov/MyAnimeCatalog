@@ -1,9 +1,7 @@
 .carousel__grid__item {
+  overflow: hidden;
   background-color: var(--clr-secondary);
   border-radius: var(--px-small-3);
-  overflow: hidden;
-  padding: var(--px-small-1) var(--px-small-2);
-
 }
 
 .carousel__grid__item:hover {
@@ -16,6 +14,7 @@
   padding: 0;
   display: block;
   height: 40%;
+  overflow: hidden;
 }
 
 .carousel__item__image {
@@ -23,6 +22,10 @@
   object-position: center top;
   width: 100%;
   height: var(--px-big-4);
+}
+
+.carousel__item__details {
+  margin: var(--px-small-1);
 }
 
 .carousel__item__title {
@@ -33,4 +36,8 @@
 #carousel .carousel__grid .carousel__grid__item .btn-primary,
 #carousel .carousel__grid .carousel__grid__item .btn-secondary {
   margin-top: var(--px-small-3);
+}
+
+.showDetails{
+  position: absolute;
 }

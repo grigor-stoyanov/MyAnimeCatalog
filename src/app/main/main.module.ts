@@ -1,21 +1,20 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MainComponent} from './main/main.component';
-import {CarouselComponent} from './carousel/carousel.component';
-import {CarouselItemComponent} from './carousel-item/carousel-item.component';
-import {SearchComponent} from './search/search.component';
+import {SearchComponent} from './home/search/search.component';
+import {SharedModule} from "../shared/shared.module";
+import {HomeModule} from "./home/home.module";
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    CarouselComponent,
-    CarouselItemComponent,
-    SearchComponent
   ],
-  imports: [
-    CommonModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        HomeModule
+    ],
   exports: [
     MainComponent,
   ]

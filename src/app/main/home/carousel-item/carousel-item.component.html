@@ -1,0 +1,12 @@
+<div *ngIf="anime" [ngClass]="showDescription" class="carousel__grid__item">
+  <figure class="carousel__item__figure">
+    <img class="carousel__item__image" src="{{anime!.image}}" alt="">
+  </figure>
+  <div class="carousel__item__details">
+    <p class="carousel__item__title">{{anime!.title}}</p>
+    <p class="carousel__item__description">{{descToShow}}</p>
+    <button *ngIf="btnDetails" (click)="showDescription()" class="btn-primary">Show Details</button>
+    <button *ngIf="!btnDetails" (click)="hideDescription()" class="btn-primary">Hide Details</button>
+    <button class="btn-secondary">Reviews</button>
+  </div>
+</div>

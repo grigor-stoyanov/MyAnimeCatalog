@@ -1,0 +1,59 @@
+#carousel {
+  margin-top: var(--px-big-3);
+  text-align: center;
+  position: relative;
+}
+
+
+#carousel .carousel__title {
+  font-size: var(--ms-scale-2);
+  font-weight: 700;
+  color: var(--clr-black);
+  margin: var(--px-small-2);
+}
+
+#carousel .carousel__title .active {
+  color: var(--clr-darkblue);
+}
+
+
+#carousel .carousel__grid {
+  width: calc(100vw - 100vw / 5);
+  margin-top: var(--px-small-2);
+  display: grid;
+  overflow-y: hidden;
+  overflow-x: auto;
+  grid-auto-columns: calc((100vw / 5) - var(--px-small-2));
+  grid-auto-flow: column;
+  place-items: self-start center;
+  padding: var(--px-small-3);
+  gap: var(--px-small-2);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#carousel .carousel__grid::-webkit-scrollbar {
+  display: none;
+}
+#carousel .wrapper{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#carousel .carousel__shadow__after {
+  z-index: 1;
+  position:relative;
+  right:100px;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), var(--clr-bg) 95%);
+  width:100px;
+}
+
+#carousel .carousel__shadow__before {
+  position: relative;
+  z-index: 1;
+  left: 100px;
+  pointer-events: none;
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 0), var(--clr-bg) 95%);
+  width: 100px;
+}

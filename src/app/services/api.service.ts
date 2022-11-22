@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IAnime} from '../interfaces/anime';
-import {environment} from '../environments/environment';
+import {IAnime} from '../../interfaces/anime';
+import {environment} from '../../environments/environment';
 
 const apiURL = environment['apiURL']
 

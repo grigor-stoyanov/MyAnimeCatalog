@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {IAnime} from '../../../interfaces/anime'
+import {IAnime} from '../../../../interfaces/anime'
 
 
 @Component({
@@ -24,6 +24,7 @@ export class CarouselItemComponent implements OnInit {
   showDescription() {
     this.descToShow = (this.desc) ? this.desc : ''
     this.btnDetails = false
+    return {'showDetails':true}
   }
 
   hideDescription() {
