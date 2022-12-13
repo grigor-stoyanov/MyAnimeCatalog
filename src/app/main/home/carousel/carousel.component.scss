@@ -30,23 +30,25 @@
   gap: var(--px-small-2);
   -ms-overflow-style: none;
   scrollbar-width: none;
+  cursor: grab;
 }
 
 #carousel .carousel__grid::-webkit-scrollbar {
   display: none;
 }
-#carousel .wrapper{
+
+#carousel .wrapper {
   display: flex;
   flex-wrap: nowrap;
 }
 
 #carousel .carousel__shadow__after {
   z-index: 1;
-  position:relative;
-  right:100px;
+  position: relative;
+  right: 100px;
   pointer-events: none;
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0), var(--clr-bg) 95%);
-  width:100px;
+  width: 100px;
 }
 
 #carousel .carousel__shadow__before {
@@ -57,3 +59,13 @@
   background-image: linear-gradient(to left, rgba(255, 255, 255, 0), var(--clr-bg) 95%);
   width: 100px;
 }
+:host #carousel .wrapper .overlayDetails::before{
+  content:'';
+  display: block;
+
+}:host #carousel .wrapper .overlayDetails::after{
+  content:'';
+  display: block;
+
+}
+

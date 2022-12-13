@@ -1,8 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {SideScrollService} from "../../../services/side-scroll.service";
 import {IAnime} from '../../../../interfaces/anime';
 import {Observable} from 'rxjs';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-carousel',
@@ -17,6 +18,29 @@ export class CarouselComponent implements OnInit {
   maxScrollWidth: number = 0;
   page: number = 1;
   isLoading: boolean = true;
+  detailsBtnClicked=true;
+  mouseDown = false;
+  startX!:number;
+  scrollLeft!:number;
+
+  startDragging(e:MouseEvent, flag:boolean, el:HTMLDivElement) {
+    this.mouseDown = true;
+    this.startX = e.pageX - el.offsetLeft;
+    this.scrollLeft = el.scrollLeft;
+  }
+  stopDragging(e:MouseEvent, flag:boolean) {
+    this.mouseDown = false;
+  }
+  moveEvent(e:MouseEvent, el:HTMLDivElement) {
+    e.preventDefault();
+    if (!this.mouseDown) {
+      return;
+    }
+    const x = e.pageX - el.offsetLeft;
+    const scroll = x - this.startX;
+    el.scrollLeft = this.scrollLeft - scroll;
+  }
+
 
   getXPosition(e: Event): number {
     return (e.target as Element).scrollLeft;
@@ -54,6 +78,11 @@ export class CarouselComponent implements OnInit {
   }
 
 
+
+  set detailsBtnClickedSetter(buttonClicked:boolean){
+    this.detailsBtnClicked=buttonClicked;
+  }
+
   constructor(private ApiService: ApiService,
               private SideScrollService: SideScrollService) {
     this.scrollX$ = this.SideScrollService.scrollX$;
@@ -68,5 +97,4 @@ export class CarouselComponent implements OnInit {
       }
     )
   }
-
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {map, share, Subscription, timer} from "rxjs";
+import {interval, map, share, startWith, Subscription, timer} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -7,19 +7,12 @@ import {map, share, Subscription, timer} from "rxjs";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  time = new Date().toLocaleString();
+  time$ = interval(1000).pipe(startWith(null),map(() => new Date().toLocaleString()),share())
   intervalId: any;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.intervalId = setInterval(() => {
-      this.time = new Date().toLocaleString();
-    });
-  }
-
-  ngOnDestroy() {
-    clearInterval(this.intervalId);
   }
 }

@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ToggleComponent } from './toggle/toggle.component';
+
 
 
 
 @NgModule({
   declarations: [
-    SpinnerComponent
+    SpinnerComponent,
+    ToggleComponent,
+
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
-  exports:[
-    SpinnerComponent
-  ]
+    exports: [
+        SpinnerComponent,
+        ToggleComponent
+    ]
 })
 export class SharedModule { }

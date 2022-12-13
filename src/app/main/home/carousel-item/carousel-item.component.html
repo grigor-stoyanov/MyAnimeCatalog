@@ -1,4 +1,4 @@
-<div *ngIf="anime" [ngClass]="showDescription" class="carousel__grid__item">
+<div *ngIf="anime" [ngClass]="{'showDetails':!btnDetails}" class="carousel__grid__item">
   <figure class="carousel__item__figure">
     <img class="carousel__item__image" src="{{anime!.image}}" alt="">
   </figure>

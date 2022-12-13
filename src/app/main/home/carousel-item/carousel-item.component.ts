@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IAnime} from '../../../../interfaces/anime'
 
 
@@ -13,7 +13,7 @@ export class CarouselItemComponent implements OnInit {
   descToShow: string = '';
   btnDetails: boolean = true;
   card?: HTMLDivElement;
-
+  @Output() moreDetailsClicked = new EventEmitter<boolean>()
   constructor() {
   }
 
@@ -24,11 +24,12 @@ export class CarouselItemComponent implements OnInit {
   showDescription() {
     this.descToShow = (this.desc) ? this.desc : ''
     this.btnDetails = false
-    return {'showDetails':true}
+    this.moreDetailsClicked.emit(this.btnDetails)
   }
 
   hideDescription() {
     this.descToShow = (this.desc) ? `${this.desc?.substring(0, 200)}...` : ''
     this.btnDetails = true
+    this.moreDetailsClicked.emit(this.btnDetails)
   }
 }
