@@ -1,3 +1,10 @@
+body {
+  background-image: url('../assets/background.png');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-blend-mode: darken;
+  background-position: center center;
+}
 :root .light-mode {
   --clr-primary: #50b2c0;
   --clr-darkblue: #0d47d9;
@@ -6,30 +13,18 @@
   --clr-bg: #E5E5E5;
   --clr-salmon: #faaa8d;
   --clr-danger: #C14040;
+  --clr-font:#000;
   --clr-white: #fff;
-  --clr-black: #000;
 }
 
 :root .dark-mode {
+  --clr-font:#fff;
+  --clr-grey: #333333;
   --clr-primary: #50b2c0;
   --clr-darkblue: #2D4263;
   --clr-secondary: #faaa8d;
-  --clr-grey: #F5F5F5;
-  --clr-bg: #191919;
+  --clr-bg: rgba(25, 25, 25, 0.95);
   --clr-salmon: #C84B31;
   --clr-danger: #C14040;
   --clr-white: #fff;
-  --clr-black: #C84B31;
-}
-
-.dark-mode label {
-  color: var(--clr-secondary)
-}
-
-.darkmode {
-  color: (--clr-white)
-}
-
-.darkmode a {
-  color: var(--clr-white)
 }

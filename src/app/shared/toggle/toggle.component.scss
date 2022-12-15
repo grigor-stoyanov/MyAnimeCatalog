@@ -48,7 +48,10 @@ $green: #56c080;
 	visibility: hidden;
 }
 .toggle-label {
+  display: block;
 	margin-left: 5px;
 	position: relative;
 	top: 2px;
+  font-size: 12px;
+  color:var(--clr-font);
 }

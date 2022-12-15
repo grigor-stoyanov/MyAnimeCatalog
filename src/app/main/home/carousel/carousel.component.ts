@@ -1,8 +1,12 @@
-import {Component, HostListener, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {SideScrollService} from "../../../services/side-scroll.service";
-import {IAnime} from '../../../../interfaces/anime';
-import {Observable} from 'rxjs';
+import {IAnime} from '../../../interfaces';
+import {catchError, EMPTY, Observable, of, Subscription} from 'rxjs';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -11,27 +15,31 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   styleUrls: ['./carousel.component.scss'],
 })
 export class CarouselComponent implements OnInit {
-  animesList: IAnime[] | null = null;
+  animesList: IAnime[] | null = [];
   scrollX$?: Observable<number>;
-  isScrolling: boolean = false;
+  isScrollingRight: boolean = false;
+  isScrollingLeft: boolean = false;
   scrollPosition: number = 0;
   maxScrollWidth: number = 0;
   page: number = 1;
-  isLoading: boolean = true;
-  detailsBtnClicked=true;
+  isLoading: boolean | null = true;
+  detailsBtnClicked = true;
   mouseDown = false;
-  startX!:number;
-  scrollLeft!:number;
+  startX!: number;
+  scrollLeft!: number;
+  bottomValue: number = 400;
 
-  startDragging(e:MouseEvent, flag:boolean, el:HTMLDivElement) {
+  startDragging(e: MouseEvent, flag: boolean, el: HTMLDivElement) {
     this.mouseDown = true;
     this.startX = e.pageX - el.offsetLeft;
     this.scrollLeft = el.scrollLeft;
   }
-  stopDragging(e:MouseEvent, flag:boolean) {
+
+  stopDragging(e: MouseEvent, flag: boolean) {
     this.mouseDown = false;
   }
-  moveEvent(e:MouseEvent, el:HTMLDivElement) {
+
+  moveEvent(e: MouseEvent, el: HTMLDivElement) {
     e.preventDefault();
     if (!this.mouseDown) {
       return;
@@ -59,28 +67,36 @@ export class CarouselComponent implements OnInit {
       this.maxScrollWidth = this.getMaxScrollWidth(<HTMLDivElement>e.target);
       this.scrollPosition = (value / this.maxScrollWidth) * 100;
 
-      this.isScrolling = (value >= 5);
-
+      this.isScrollingRight = value >= 5;
+      this.isScrollingLeft = value <= this.bottomValue - 5;
       if (this.scrollPosition >= 95 && this.isLoading) {
         this.isLoading = false;
-        this.loadOnScroll()
+        this.loadOnScroll(value);
       }
     })
 
   }
 
-  loadOnScroll() {
+  loadOnScroll(scrollValue: number) {
     this.page++;
-    this.ApiService.loadAnimes(this.page).subscribe({
-      next: (data) =>{ this.animesList?.push(...data);this.isLoading=true},
-      error: (err) => console.log(err)
-    })
+    this.ApiService.loadAnimes(this.page)
+      .pipe(catchError(()=>EMPTY))
+      .subscribe({
+        next: (data) => {
+          this.animesList?.push(...data);
+          this.isLoading = true
+        },
+        error: () => {
+          this.isLoading = null
+          this.isScrollingLeft = false;
+          this.bottomValue = scrollValue;
+        }
+      })
   }
 
 
-
-  set detailsBtnClickedSetter(buttonClicked:boolean){
-    this.detailsBtnClicked=buttonClicked;
+  set detailsBtnClickedSetter(buttonClicked: boolean) {
+    this.detailsBtnClicked = buttonClicked;
   }
 
   constructor(private ApiService: ApiService,
@@ -90,11 +106,20 @@ export class CarouselComponent implements OnInit {
 
   ngOnInit():
     void {
+    this.isLoading = false;
     this.ApiService.loadAnimes().subscribe(
       {
-        next: (data) => this.animesList = data,
-        error: (err) => console.log(err),
+        next: (data) => {
+          this.animesList = data;
+
+        },
+        error: () => {
+          this.isLoading = null;
+          this.animesList = null
+        },
+        complete: () => this.isLoading = true
       }
     )
+
   }
 }

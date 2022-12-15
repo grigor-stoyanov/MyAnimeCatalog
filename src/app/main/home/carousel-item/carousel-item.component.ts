@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {IAnime} from '../../../../interfaces/anime'
+import {IAnime} from '../../../interfaces/anime'
 
 
 @Component({

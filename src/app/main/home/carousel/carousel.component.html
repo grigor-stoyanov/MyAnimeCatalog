@@ -2,21 +2,24 @@
   <a href="#" class="carousel__title active">Popular</a>
   <a href="#" class="carousel__title">Recommended</a>
   <a href="#" class="carousel__title">Recent</a>
-  <app-spinner *ngIf="animesList==null"></app-spinner>
-  <div class="wrapper">
-    <div  *ngIf="isScrolling" class="carousel__shadow__before"></div>
+  <app-spinner *ngIf="(!isLoading)&&(isLoading!==null)"></app-spinner>
+  <div *ngIf="animesList==null">No Content to display</div>
+  <div class="wrapper" >
+    <div *ngIf="isScrollingRight" class="carousel__shadow__before"></div>
     <div #carousel
-      [ngClass]="{overlayDetails:!detailsBtnClicked}"
-      (scroll)="onScroll($event)"
-      (mousedown)="startDragging($event, false, carousel)"
-      (mouseup)="stopDragging($event, false)"
-      (mouseleave)="stopDragging($event, false)"
-      (mousemove)="moveEvent($event, carousel)"
-      class="carousel__grid" >
-      <app-carousel-item (moreDetailsClicked)="detailsBtnClickedSetter=$event" *ngFor="let anime of animesList" [anime]="anime" [desc]="anime.description">
+
+         [ngClass]="{overlayDetails:!detailsBtnClicked}"
+         (scroll)="onScroll($event)"
+         (mousedown)="startDragging($event, false, carousel)"
+         (mouseup)="stopDragging($event, false)"
+         (mouseleave)="stopDragging($event, false)"
+         (mousemove)="moveEvent($event, carousel)"
+         class="carousel__grid">
+      <app-carousel-item (moreDetailsClicked)="detailsBtnClickedSetter=$event" *ngFor="let anime of animesList"
+                         [anime]="anime" [desc]="anime.description">
       </app-carousel-item>
     </div>
-    <div  *ngIf="isScrolling" class="carousel__shadow__after"></div>
+    <div *ngIf="isScrollingLeft" class="carousel__shadow__after"></div>
   </div>
 </section>
 

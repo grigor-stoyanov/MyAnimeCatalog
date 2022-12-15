@@ -1,6 +1,9 @@
+
 <label class="toggle" >
-  <input #toggle (click)="toggleMode($event,toggle.value)" [value]="mode$|async" class="toggle-checkbox" type="checkbox">
-  <div class="toggle-switch"></div>
   <span class="toggle-label">{{label}}</span>
+  <input #toggle (click)="toggleMode($event,toggle.value)" [value]="mode$|async" class="toggle-checkbox" type="checkbox">
+
+  <div class="toggle-switch"></div>
+
 </label>
 

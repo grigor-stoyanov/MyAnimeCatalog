@@ -1,10 +1,10 @@
 <header class="site-header">
   <div class="unauthenticated">
-    <a class="btn-primary" href="#"><i class="fa-regular fa-pen-to-square"></i> Sign Up</a>
+    <a class="btn-primary" routerLink="auth/register"><i class="fa-regular fa-pen-to-square"></i> Sign Up</a>
     <time id="date-time">{{time$|async}}</time>
     <div>
-      <a class="btn-primary" href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Sign In</a>
-      <app-toggle label="Dark Mode"></app-toggle>
+      <a class="btn-primary" routerLink="auth/login"><i class="fa-solid fa-arrow-up-right-from-square"></i> Sign In</a>
+      <app-toggle label="{{label}}"></app-toggle>
     </div>
   </div>
 </header>

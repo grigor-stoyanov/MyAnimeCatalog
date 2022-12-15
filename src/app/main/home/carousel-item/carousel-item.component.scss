@@ -2,6 +2,7 @@
   overflow: hidden;
   background-color: var(--clr-secondary);
   border-radius: var(--px-small-3);
+
 }
 
 .carousel__grid__item:hover {
@@ -18,14 +19,16 @@
 }
 
 .carousel__item__image {
-  object-fit: cover;
-  object-position: center top;
+  object-fit: fill;
+  object-position: center center;
   width: 100%;
   height: var(--px-big-4);
 }
 
 .carousel__item__details {
   margin: var(--px-small-1);
+  min-height: var(--px-big-4);
+
 }
 
 .carousel__item__title {
@@ -33,13 +36,18 @@
   font-weight: 700;
 }
 
+.carousel__item__description {
+  text-align: left;
+  min-height: 120px;
+}
+
 #carousel .carousel__grid .carousel__grid__item .btn-primary,
 #carousel .carousel__grid .carousel__grid__item .btn-secondary {
   margin-top: var(--px-small-3);
 }
 
-.showDetails{
+.showDetails {
   position: relative;
-  width:30vw;
+  width: 30vw;
   z-index: 4;
 }

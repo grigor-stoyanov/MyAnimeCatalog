@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {SharedModule} from "../shared/shared.module";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -10,10 +11,11 @@ import {SharedModule} from "../shared/shared.module";
     HeaderComponent,
     FooterComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        RouterModule
+    ],
   exports: [
     HeaderComponent,
     FooterComponent
