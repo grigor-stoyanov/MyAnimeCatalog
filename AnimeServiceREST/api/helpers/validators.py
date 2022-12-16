@@ -16,7 +16,8 @@ class FileMaxSizeValidator:
         self.limit_mb = limit_mb * self.BYTES_IN_MB * self.BYTES_IN_MB
 
     def __call__(self, value):
-        file_size = value.file.size
+
+        file_size = value.file.__sizeof__()
         if file_size > self.limit_mb:
             raise ValidationError(f"Max size of file is {self.limit_mb} MB")
 
