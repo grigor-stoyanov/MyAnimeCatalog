@@ -22,6 +22,9 @@
         Password must be at least 6 characters!
       </p>
     </ng-container>
+    <div *ngFor="let error of nonFieldErrors">
+      <p class="error">{{error}}</p>
+    </div>
     <button class="login__btn" [disabled]="loginForm.invalid">Login</button>
     <div class="login__additional">
       <input class="login__checkbox" type="checkbox"><label>Remember me</label>

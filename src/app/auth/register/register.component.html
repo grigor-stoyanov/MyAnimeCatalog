@@ -45,7 +45,7 @@
     </div>
     </ng-container>
     <input ngModel #passwordRegister="ngModel" name="password" class="register__input" placeholder="Password"
-           type="text" required [minlength]="6">
+           type="password" required [minlength]="6">
     <ng-container *ngIf="passwordRegister.touched">
       <p class="error" *ngIf="passwordRegister.errors?.['required']">
         Password is required!
@@ -55,7 +55,7 @@
       </p>
     </ng-container>
     <input ngModel #repasswordRegister="ngModel" name="repassword" class="register__input" placeholder="RePassword"
-           type="text" [matchPassword]="passwordRegister.value">
+           type="password" [matchPassword]="passwordRegister.value">
     <ng-container *ngIf="repasswordRegister.touched">
       <p class="error" *ngIf="repasswordRegister.errors?.['matchPassword']">
         Passwords don't match!

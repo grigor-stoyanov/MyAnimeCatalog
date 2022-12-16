@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Form, NgForm} from "@angular/forms";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../services/fetch/user.service";
 import {Route, Router} from "@angular/router";
 import {catchError} from "rxjs";
+import {LocalService} from "../../services/storage/local-storage.service";
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,8 @@ export class RegisterComponent {
   }
 
   constructor(private userService: UserService,
-              private router: Router,) {
+              private router: Router,
+              private localStorage:LocalService) {
   }
 
   registerHandler(form: NgForm): void {
@@ -42,7 +44,10 @@ export class RegisterComponent {
 
     this.userService.register(formData)
       .subscribe({
-        next: () => this.router.navigate(['/']),
+        next: (resp) =>{
+          this.localStorage.saveData('auth',resp)
+          this.router.navigate(['/'])
+        },
         error: (err) => {
           const {email, password, username, avatar} = err.error
           this.internalEmailError = email;

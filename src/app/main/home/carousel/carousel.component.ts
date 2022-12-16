@@ -3,11 +3,11 @@ import {
   HostListener,
   OnInit,
 } from '@angular/core';
-import {ApiService} from "../../../services/api.service";
-import {SideScrollService} from "../../../services/side-scroll.service";
+import {ApiService} from "../../../services/fetch/api.service";
+import {SideScrollService} from "../side-scroll.service";
 import {IAnime} from '../../../interfaces';
-import {catchError, EMPTY, Observable, of, Subscription} from 'rxjs';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {catchError, EMPTY, Observable, of, Subscription, throwError} from 'rxjs';
+
 
 
 @Component({
@@ -86,17 +86,17 @@ export class CarouselComponent implements OnInit {
   loadOnScroll(scrollValue: number) {
     this.page++;
     this.ApiService.loadAnimes(this.page)
-      // .pipe(catchError(() => EMPTY))
+      .pipe(catchError(() => {
+        this.isLoading = null;
+        this.reachedBottom = true;
+        this.isScrollingLeft = false;
+        this.bottomValue = scrollValue;
+        return EMPTY;
+      }))
       .subscribe({
         next: (data) => {
           this.animesList?.push(...data);
           this.isLoading = true;
-        },
-        error: () => {
-          this.isLoading = null;
-          this.reachedBottom = true;
-          this.isScrollingLeft = false;
-          this.bottomValue = scrollValue;
         }
       })
   }

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppComponent} from './app.component';
 import {CoreModule} from "./core/core.module";
 import {HttpClientModule} from "@angular/common/http";
@@ -11,6 +10,7 @@ import {SharedModule} from "./shared/shared.module";
 import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./main/home/home/home.component";
 import * as $ from 'jquery';
+import { appInterceptorPrivider} from "./app.interceptor";
 
 const routes: Routes = [
   {
@@ -40,9 +40,11 @@ const routes: Routes = [
     MainModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
   ],
-  providers: [],
+  providers: [
+    appInterceptorPrivider,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

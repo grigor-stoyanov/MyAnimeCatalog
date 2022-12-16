@@ -23,6 +23,7 @@
   object-position: center center;
   width: 100%;
   height: var(--px-big-4);
+  pointer-events: none;
 }
 
 .carousel__item__details {

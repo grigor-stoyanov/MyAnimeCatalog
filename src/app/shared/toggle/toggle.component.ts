@@ -1,18 +1,22 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DarkModeService} from "../../services/dark-mode.service";
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {DarkModeService} from "../../services/design/dark-mode.service";
 import {map, Observable, scan, share, shareReplay, startWith, take, tap} from "rxjs";
+import {LocalService} from "../../services/storage/local-storage.service";
 
 @Component({
   selector: 'app-toggle',
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.scss']
 })
-export class ToggleComponent implements OnInit {
-  @Input() label!: string;
+export class ToggleComponent implements OnInit, OnChanges {
   mode$: Observable<string> = this.modeService.currentMode$
+  checked: boolean | null;
+  @Input() label!: Observable<string>;
 
-
-  constructor(private modeService: DarkModeService, private elementRef: ElementRef) {
+  constructor(private modeService: DarkModeService, private elementRef: ElementRef, private localService: LocalService) {
+    const checked = this.localService.getData('theme')
+    this.checked = ((checked == null) ? false : (checked != 'light-mode'))
+    let a = 'bitches'
   }
 
   toggleMode(ev: MouseEvent, changeTo: string) {
@@ -33,6 +37,10 @@ export class ToggleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
 
   }
 

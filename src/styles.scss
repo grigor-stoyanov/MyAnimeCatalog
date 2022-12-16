@@ -32,6 +32,8 @@ body {
   background-color: var(--clr-primary);
   color: var(--clr-darkblue);
   border: none;
+  font-size: var(--px-small-3);
+  cursor: pointer;
 }
 
 .btn-secondary {
@@ -39,7 +41,7 @@ body {
   padding: var(--px-small-1) var(--px-small-3);
   background-color: var(--clr-salmon);
   color: var(--clr-darkblue);
-  border: none
+  border: none;
 }
 
 /* Box sizing rules */
