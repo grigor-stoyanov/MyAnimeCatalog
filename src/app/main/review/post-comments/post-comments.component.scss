@@ -1,0 +1,35 @@
+ .review__comment {
+    display: flex;
+    flex-direction: row;
+    gap:var(--px-small-3);
+    margin-top: var(--px-big-2);
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
+    padding: var(--px-small-3);
+    background-color: var(--clr-secondary);
+}
+
+.review__comment {
+    margin-top: var(--px-small-3);
+    width: 80vw;
+    background-color: var(--clr-secondary);
+}
+
+
+.comment__figure {
+  position: relative;
+    flex-shrink: 1;
+    width: 10vw;
+}
+
+
+.comment__avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+

@@ -1,0 +1,100 @@
+
+.review__title {
+  font-size: var(--px-small-4);
+  font-weight: 800;
+  color: var(--clr-font);
+}
+
+.review__synopsis, ul > li, span {
+  color: var(--clr-font);
+
+}
+
+li > a {
+  font-weight: 800;
+  color: var(--clr-darkblue);
+}
+
+.review__data__genres li a {
+  display: inline-block;
+}
+
+.button-like {
+  display: inline-block;
+  cursor: pointer;
+  outline: 0;
+  color: #AAA;
+}
+
+.btn-like:focus {
+  outline: none;
+}
+
+.btn-green {
+  color: green;
+}
+
+.btn-red {
+  color: red;
+}
+
+.likes {
+  margin-top: var(--px-small-3)
+}
+
+
+.review__figure {
+  position: relative;
+  flex-shrink: 1;
+  width: 40vw;
+
+}
+
+.review__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.review__content {
+  width: 60vw;
+}
+
+.review__flex {
+  display: flex;
+  width: 90vw;
+  gap: var(--px-small-4);
+  justify-content: stretch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review__stats__flex {
+  margin-top: var(--px-small-4);
+  display: flex;
+  justify-content: space-between;
+}
+
+.review__data__genres {
+  display: inline-block;
+}
+
+.review__data__genres > li {
+  display: inline;
+}
+
+.review__stats__left {
+  width: 40%;
+}
+
+.review__stats__right {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
