@@ -1,0 +1,47 @@
+import {Inject, Injectable, Provider} from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor, HTTP_INTERCEPTORS, HttpHeaders
+} from '@angular/common/http';
+import {BehaviorSubject, catchError, EMPTY, Observable, tap} from 'rxjs';
+
+import {InjectionToken} from "@angular/core";
+import {UserService} from "./services/fetch/user.service";
+import {Router} from "@angular/router";
+import {LocalService} from "./services/storage/local-storage.service";
+
+
+@Injectable()
+export class AppInterceptor implements HttpInterceptor {
+
+  constructor(private userService: UserService, private router: Router, private localService: LocalService) {
+  }
+
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const auth = this.localService.getData('auth')
+    if (req.withCredentials) {
+      if (!auth) {
+        this.router.navigate(['auth/login'])
+        return EMPTY
+      }
+      const token = auth['token']
+      const headers = new HttpHeaders({'Authorization': `Token ${token}`});
+    req = req.clone({url: req.url,headers:headers,withCredentials:false})
+    return next.handle(req)
+    }
+
+
+    req.clone({url: req.url})
+    return next.handle(req);
+  }
+}
+
+
+export const
+  appInterceptorPrivider: Provider = {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AppInterceptor,
+    multi: true,
+  }
