@@ -31,14 +31,14 @@ export class ImageValidatorDirective implements Validator {
 
   validate(control: AbstractControl): ValidationErrors | null {
     const re = /(\.jpg|\.jpeg|\.png)$/i;
-    const MB_LIMIT=5
-    const BYTE_MB = 1024*1024
+    const MB_LIMIT = 5
+    const BYTE_MB = 1024 * 1024
     this.size = this.el.nativeElement?.files[0]?.size
-    if (!re.test(control.value)) {
+    if (!re.test(control.value) && control.value !== '') {
       return {'invalidType': true}
     }
-    if(this.size&&(this.size/(BYTE_MB))>MB_LIMIT){
-      return {'invalidSize':true}
+    if (this.size && (this.size / (BYTE_MB)) > MB_LIMIT) {
+      return {'invalidSize': true}
     }
     return null
   }

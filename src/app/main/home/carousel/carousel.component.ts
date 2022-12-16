@@ -9,6 +9,7 @@ import {IAnime} from '../../../interfaces';
 import {catchError, EMPTY, Observable, of, Subscription} from 'rxjs';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
+
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
@@ -18,7 +19,7 @@ export class CarouselComponent implements OnInit {
   animesList: IAnime[] | null = [];
   scrollX$?: Observable<number>;
   isScrollingRight: boolean = false;
-  isScrollingLeft: boolean = false;
+  isScrollingLeft: boolean = true;
   scrollPosition: number = 0;
   maxScrollWidth: number = 0;
   page: number = 1;
@@ -27,7 +28,8 @@ export class CarouselComponent implements OnInit {
   mouseDown = false;
   startX!: number;
   scrollLeft!: number;
-  bottomValue: number = 400;
+  bottomValue!: number;
+  reachedBottom: boolean = false;
 
   startDragging(e: MouseEvent, flag: boolean, el: HTMLDivElement) {
     this.mouseDown = true;
@@ -68,26 +70,31 @@ export class CarouselComponent implements OnInit {
       this.scrollPosition = (value / this.maxScrollWidth) * 100;
 
       this.isScrollingRight = value >= 5;
-      this.isScrollingLeft = value <= this.bottomValue - 5;
+
+      if (this.reachedBottom) {
+        this.isScrollingLeft = value <= this.bottomValue - 15;
+      }
+
       if (this.scrollPosition >= 95 && this.isLoading) {
         this.isLoading = false;
         this.loadOnScroll(value);
       }
     })
-
   }
+
 
   loadOnScroll(scrollValue: number) {
     this.page++;
     this.ApiService.loadAnimes(this.page)
-      .pipe(catchError(()=>EMPTY))
+      // .pipe(catchError(() => EMPTY))
       .subscribe({
         next: (data) => {
           this.animesList?.push(...data);
-          this.isLoading = true
+          this.isLoading = true;
         },
         error: () => {
-          this.isLoading = null
+          this.isLoading = null;
+          this.reachedBottom = true;
           this.isScrollingLeft = false;
           this.bottomValue = scrollValue;
         }
@@ -104,18 +111,17 @@ export class CarouselComponent implements OnInit {
     this.scrollX$ = this.SideScrollService.scrollX$;
   }
 
+  // TODO Fix Spinner while Awaiting Initial Load Data
   ngOnInit():
     void {
-    this.isLoading = false;
     this.ApiService.loadAnimes().subscribe(
       {
         next: (data) => {
           this.animesList = data;
-
         },
         error: () => {
           this.isLoading = null;
-          this.animesList = null
+          this.animesList = []
         },
         complete: () => this.isLoading = true
       }

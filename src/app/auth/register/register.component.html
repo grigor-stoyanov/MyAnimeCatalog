@@ -1,6 +1,7 @@
 <div id="register">
   <p class="register__title">Sign Up</p>
-  <form #registerForm="ngForm" class="register__form">
+  <form enctype="multipart/form-data" #registerForm="ngForm" (ngSubmit)="registerHandler(registerForm)"
+        class="register__form">
     <input #usernameRegister="ngModel" ngModel name="username" class="register__input" placeholder="Username"
            type="text" required onlyLetters>
     <ng-container *ngIf="usernameRegister.touched">
@@ -11,6 +12,9 @@
         Username must only contain letters!
       </p>
     </ng-container>
+    <div *ngFor="let error of internalUsernameError">
+      <p class="error">{{error}}</p>
+    </div>
     <input #emailRegister="ngModel" ngModel class="register__input" name="email" placeholder="Email" type="email"
            required email>
     <ng-container *ngIf="emailRegister.touched">
@@ -21,9 +25,13 @@
         Email must be of correct format!
       </p>
     </ng-container>
+    <div *ngFor="let error of internalEmailError">
+      <p class="error">{{error}}</p>
+    </div>
     <div class="file-upload-wrapper" data-text="Upload Avatar (Optional)">
-      <input (change)="changeName($event)"  ngModel #fileRegister="ngModel" name="file-upload-field" type="file"
-             class="file-upload-field"  imageValidator>
+
+      <input (change)="changeName($event)" ngModel #fileRegister="ngModel" name="avatar" type="file"
+             class="file-upload-field" imageValidator>
     </div>
     <ng-container *ngIf="fileRegister.touched">
       <p class="error" *ngIf="fileRegister.errors?.['invalidType']">
@@ -32,15 +40,18 @@
       <p class="error" *ngIf="fileRegister.errors?.['invalidSize']">
         Your avatar must be less than 5MB in size!
       </p>
+      <div *ngFor="let error of internalAvatarError">
+      <p class="error">{{error}}</p>
+    </div>
     </ng-container>
     <input ngModel #passwordRegister="ngModel" name="password" class="register__input" placeholder="Password"
-           type="text" required [minlength]="8">
+           type="text" required [minlength]="6">
     <ng-container *ngIf="passwordRegister.touched">
       <p class="error" *ngIf="passwordRegister.errors?.['required']">
         Password is required!
       </p>
       <p class="error" *ngIf="passwordRegister.errors?.['minlength']">
-        Password must be at least 8 characters!
+        Password must be at least 6 characters!
       </p>
     </ng-container>
     <input ngModel #repasswordRegister="ngModel" name="repassword" class="register__input" placeholder="RePassword"
@@ -53,7 +64,7 @@
     <button class="register__btn" [disabled]="registerForm.invalid">Register</button>
     <div class="register__additional">
       <input class="register__checkbox" type="checkbox"><label>Remember me</label>
-      <p class="register__redirect">Already have an account? <a routerLink="/auth/register">Sign in now</a></p></div>
+      <p class="register__redirect">Already have an account? <a routerLink="/auth/login">Sign in now</a></p></div>
   </form>
 </div>
 

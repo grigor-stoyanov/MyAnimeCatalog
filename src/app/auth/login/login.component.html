@@ -1,7 +1,7 @@
 <div id="login">
   <p class="login__title">Sign In</p>
-  <form #loginForm="ngForm" class="login__form">
-    <input #usernameLogin="ngModel" ngModel class="login__input" name="email" placeholder="Username" type="text"
+  <form #loginForm="ngForm" (submit)="loginHandler(loginForm)" class="login__form" enctype="multipart/form-data">
+    <input #usernameLogin="ngModel" ngModel class="login__input" name="username" placeholder="Username" type="text"
            required onlyLetters>
     <ng-container *ngIf="usernameLogin.touched">
       <p class="error" *ngIf="usernameLogin.errors?.['required']">
@@ -13,13 +13,13 @@
     </ng-container>
     <input #passwordLogin="ngModel" ngModel class="login__input" name="password" placeholder="Password" type="password"
            required
-           [minlength]="8">
+           [minlength]="6">
     <ng-container *ngIf="passwordLogin.touched">
       <p class="error" *ngIf="passwordLogin.errors?.['required']">
         Password is required!
       </p>
       <p class="error" *ngIf="passwordLogin.errors?.['minlength']">
-        Password must be at least 8 characters!
+        Password must be at least 6 characters!
       </p>
     </ng-container>
     <button class="login__btn" [disabled]="loginForm.invalid">Login</button>

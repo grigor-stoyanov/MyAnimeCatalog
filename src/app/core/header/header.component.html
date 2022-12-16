@@ -2,6 +2,7 @@
   <div class="unauthenticated">
     <a class="btn-primary" routerLink="auth/register"><i class="fa-regular fa-pen-to-square"></i> Sign Up</a>
     <time id="date-time">{{time$|async}}</time>
+    {{user$|async|json}}
     <div>
       <a class="btn-primary" routerLink="auth/login"><i class="fa-solid fa-arrow-up-right-from-square"></i> Sign In</a>
       <app-toggle label="{{label}}"></app-toggle>

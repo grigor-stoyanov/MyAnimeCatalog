@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, filter, tap} from "rxjs";
+import {BehaviorSubject, catchError, filter, tap} from "rxjs";
 import {IUser} from "../interfaces";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+
+const apiURL = environment['apiURL']
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +21,21 @@ export class UserService {
       this.user = user
     })
   }
-  login(email: string, password: string) {
-    return this.http.post<IUser>('api/login', {
-      email, password
+
+  login(username: string, password: string) {
+    return this.http.post<IUser>(`${apiURL}login/`, {
+      username, password
     }).pipe(
       tap(user => this.user$$.next(user))
     );
+  }
+
+  register(formData: any) {
+    // const headers = new HttpHeaders().append('Content-Type', 'Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW');
+    // const filename = (formData.get('avatar').name) ? formData.get('avatar').name : '';
+    // headers.append('Content-Disposition', `Content-Disposition: attachment; filename=${filename}`);
+    return this.http.post<IUser>(`${apiURL}register/`,
+      formData)
+      .pipe(tap(user => this.user$$.next(user as any)));
   }
 }
