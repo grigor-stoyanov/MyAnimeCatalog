@@ -16,7 +16,15 @@ export class UserService {
   user: IUser | IAuth | null = null
 
   constructor(private http: HttpClient, private localStorage: LocalService) {
-    this.user$$.next(this.localStorage.getData('auth'))
+    const auth = this.localStorage.getData('auth')
+    const sauth = this.localStorage.getSessionData('auth')
+    if (auth) {
+      this.user$$.next(auth)
+    } else if (sauth) {
+      this.user$$.next(sauth)
+    } else {
+      this.user$$.next(null)
+    }
   }
 
 
@@ -31,7 +39,7 @@ export class UserService {
   register(formData: FormData) {
     return this.http.post<IAuth>(`${apiURL}register/`,
       formData)
-      .pipe(tap(user => this.user$$.next(user as any)));
+      .pipe(tap(user => this.user$$.next(user)));
   }
 
   logout() {

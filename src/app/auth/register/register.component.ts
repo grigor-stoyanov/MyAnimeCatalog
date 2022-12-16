@@ -45,7 +45,7 @@ export class RegisterComponent {
     this.userService.register(formData)
       .subscribe({
         next: (resp) =>{
-          this.localStorage.saveData('auth',resp)
+          this.localStorage.saveSessionData('auth',resp)
           this.router.navigate(['/'])
         },
         error: (err) => {

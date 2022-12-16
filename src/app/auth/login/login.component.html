@@ -27,7 +27,7 @@
     </div>
     <button class="login__btn" [disabled]="loginForm.invalid">Login</button>
     <div class="login__additional">
-      <input class="login__checkbox" type="checkbox"><label>Remember me</label>
+      <input #isRemembered class="login__checkbox" type="checkbox" checked><label>Remember me</label>
       <p class="login__redirect">New to AnimeCatalog? <a routerLink="/auth/register">Sign up now</a></p></div>
   </form>
 </div>

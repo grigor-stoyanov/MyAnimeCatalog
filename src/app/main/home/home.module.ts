@@ -5,14 +5,16 @@ import {CarouselItemComponent} from "./carousel-item/carousel-item.component";
 import {SharedModule} from "../../shared/shared.module";
 import {SearchComponent} from "./search/search.component";
 import { HomeComponent } from './home/home.component';
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
   declarations: [CarouselComponent, CarouselItemComponent, SearchComponent, HomeComponent],
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        RouterModule
+    ],
   exports: [
     CarouselComponent, CarouselItemComponent, SearchComponent, HomeComponent
   ]

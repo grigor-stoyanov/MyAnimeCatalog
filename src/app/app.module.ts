@@ -11,6 +11,7 @@ import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./main/home/home/home.component";
 import * as $ from 'jquery';
 import { appInterceptorPrivider} from "./app.interceptor";
+import { ReviewComponent } from './main/review/review/review.component';
 
 const routes: Routes = [
   {
@@ -25,12 +26,16 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  } , {
+    path: 'review',
+    loadChildren: () => import('./main/review/review.module').then(m => m.ReviewModule)
   }
 ]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,

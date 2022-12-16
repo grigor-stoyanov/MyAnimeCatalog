@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../../services/fetch/user.service";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -10,8 +10,11 @@ import {LocalService} from "../../services/storage/local-storage.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  @ViewChild('isRemembered', {static: true}) isRemembered!: ElementRef;
+
   user = this.userService.user
   nonFieldErrors: string[] = []
+
 
   constructor(private userService: UserService,
               private router: Router,
@@ -27,7 +30,12 @@ export class LoginComponent {
     this.userService.login(username, password)
       .subscribe({
         next: (resp) => {
-          this.localStorage.saveData('auth', resp)
+          if (this.isRemembered.nativeElement.checked) {
+            this.localStorage.saveData('auth', resp)
+          } else {
+            this.localStorage.saveSessionData('auth', resp)
+          }
+
           this.router.navigate(['/'])
         },
         error: (err) => this.nonFieldErrors = err.error['non_field_errors']

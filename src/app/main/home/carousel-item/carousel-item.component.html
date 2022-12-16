@@ -7,6 +7,6 @@
       <p class="carousel__item__description">{{descToShow}}</p>
       <button *ngIf="btnDetails" (click)="showDescription()" class="btn-primary">Show Details</button>
       <button *ngIf="!btnDetails" (click)="hideDescription()" class="btn-primary">Hide Details</button>
-      <button class="btn-secondary">Reviews</button>
+      <a class="btn-secondary" routerLink="/review">Reviews</a>
     </div>
 </div>

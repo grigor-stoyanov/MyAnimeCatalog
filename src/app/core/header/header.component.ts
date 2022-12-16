@@ -28,10 +28,9 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.userService.logout().subscribe()
-    this.userService.user$
   }
 
-  constructor(private userService: UserService, private themeService: DarkModeService, private localService: LocalService) {
+  constructor(private userService: UserService, private themeService: DarkModeService) {
   }
 
   ngOnInit(): void {

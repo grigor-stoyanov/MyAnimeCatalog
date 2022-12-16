@@ -8,6 +8,24 @@ export class LocalService {
   constructor() {
   }
 
+  public saveSessionData(key:string,value:any){
+    sessionStorage.setItem(key, JSON.stringify(value));
+  }
+
+  public getSessionData(key: string) {
+    const item = sessionStorage.getItem(key)
+    return (item) ? JSON.parse(item) : null;
+  }
+
+  public removeSessionData(key: string) {
+    sessionStorage.removeItem(key);
+  }
+
+  public clearSessionData() {
+    sessionStorage.clear();
+  }
+
+
   public saveData(key: string, value: any) {
     localStorage.setItem(key, JSON.stringify(value));
   }

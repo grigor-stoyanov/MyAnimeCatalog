@@ -21,15 +21,18 @@ export class AppInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const auth = this.localService.getData('auth')
+    const sauth = this.localService.getSessionData('auth')
     if (req.withCredentials) {
       if (!auth) {
-        this.router.navigate(['auth/login'])
-        return EMPTY
+        if (!sauth) {
+          this.router.navigate(['auth/login'])
+          return EMPTY
+        }
       }
       const token = auth['token']
       const headers = new HttpHeaders({'Authorization': `Token ${token}`});
-    req = req.clone({url: req.url,headers:headers,withCredentials:false})
-    return next.handle(req)
+      req = req.clone({url: req.url, headers: headers, withCredentials: false})
+      return next.handle(req)
     }
 
 

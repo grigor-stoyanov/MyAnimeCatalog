@@ -2,7 +2,7 @@ body {
   background-image: url('../assets/background.png');
   background-size: 60%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: 50% 20%;
 }
 :root .light-mode {
   --clr-primary: #50b2c0;
@@ -14,6 +14,7 @@ body {
   --clr-danger: #C14040;
   --clr-font:#000;
   --clr-white: #fff;
+  background-blend-mode: soft-light;
 }
 
 :root .dark-mode {
@@ -26,4 +27,5 @@ body {
   --clr-salmon: #C84B31;
   --clr-danger: #C14040;
   --clr-white: #fff;
+  background-blend-mode: color-burn;
 }
