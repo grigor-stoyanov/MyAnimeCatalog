@@ -4,7 +4,6 @@ import {IAnime} from '../../interfaces/anime';
 import {environment} from '../../../environments/environment';
 
 
-
 const apiURL = environment['apiURL']
 
 @Injectable({
@@ -16,6 +15,10 @@ export class ApiService {
 
   loadAnimes(page: number | null = null) {
     return this.httpClient.get<IAnime[]>(`${apiURL}animes/${(page ? `?page=${page}` : ``)}`)
+  }
+
+  getAnime(id: number) {
+    return this.httpClient.get<IAnime>(`${apiURL}animes/${id}`)
   }
 
 }

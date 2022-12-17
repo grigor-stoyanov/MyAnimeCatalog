@@ -1,5 +1,11 @@
-<form class="review__form">
-    <label></label>
-    <button class="btn-primary btn-review">Post</button>
-    <textarea class="review__input" placeholder="Post a Review!"></textarea>
-  </form>
+<form ngForm class="review__form">
+  <button type="submit" class="btn-primary btn-review">Post</button>
+  <ckeditor
+      [editor]="Editor"
+      [(ngModel)]="model.editorData"
+      name="post"
+      tagName="div"
+			data=""
+  class="review__input">
+		</ckeditor>
+</form>

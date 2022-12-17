@@ -1,8 +1,3 @@
-
-
-
-
-
 .review__form {
     display: flex;
     flex-direction: column;
@@ -10,16 +5,6 @@
     justify-content: center;
     align-items: center;
     gap: var(--px-small-2);
-}
-
-.review__input {
-    width: 80vw;
-    height: var(--px-big-4);
-    border: 2px solid var(--clr-darkblue);
-    border-radius: 7px;
-    resize: vertical;
-    background:var(--clr-grey);
-    color: var(--clr-font);
 }
 
 .review__input::placeholder {
@@ -39,4 +24,25 @@
 
 .btn-review{
   width: 20vw;
+}
+:host div .ck-blurred{
+    width: 80vw;
+    height: var(--px-big-4);
+    border: 2px solid var(--clr-darkblue);
+    border-radius: 7px;
+    resize: vertical;
+    background:var(--clr-grey);
+    color: var(--clr-font);
+}
+.ck.ck-editor__editable_inline{
+    margin-top:var(--px-small-4);
+    width: 80vw;
+    height: var(--px-big-4);
+    border: 2px solid var(--clr-darkblue);
+    border-radius: 7px;
+    resize: vertical;
+    background:var(--clr-grey);
+    color: var(--clr-font);
+  word-wrap:break-word;
+  overflow-x: hidden;
 }

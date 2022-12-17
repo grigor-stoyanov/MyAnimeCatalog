@@ -39,13 +39,13 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
     CoreModule,
     HttpClientModule,
     MainModule,
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
   ],
   providers: [
     appInterceptorPrivider,

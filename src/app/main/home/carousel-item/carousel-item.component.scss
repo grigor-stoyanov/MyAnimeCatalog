@@ -2,7 +2,7 @@
   overflow: hidden;
   background-color: var(--clr-secondary);
   border-radius: var(--px-small-3);
-
+  min-width: 300px;
 }
 
 .carousel__grid__item:hover {
