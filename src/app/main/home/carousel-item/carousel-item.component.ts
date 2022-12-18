@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IAnime} from '../../../interfaces/anime'
+import {LoaderService} from "../../../shared/loader.service";
 
 
 @Component({
@@ -14,7 +15,9 @@ export class CarouselItemComponent implements OnInit {
   btnDetails: boolean = true;
   card?: HTMLDivElement;
   @Output() moreDetailsClicked = new EventEmitter<boolean>()
-  constructor() {
+  isLoading = this.loaderService.loader$
+
+  constructor(public loaderService: LoaderService) {
   }
 
   ngOnInit(): void {

@@ -22,6 +22,7 @@ export class ApiService {
 
   getAnime(id: number) {
     return this.httpClient.get<IAnime>(`${apiURL}animes/${id}`)
+      .pipe(catchError((err, cauth) => EMPTY))
   }
 
   getPosts(id: string, page: number | null = null) {
@@ -47,13 +48,13 @@ export class ApiService {
 
 
   postReview(content: string, user: string, id: number) {
-    return this.httpClient.post<IReview>(`${apiURL}animes/${id}/posts/`, {
-      content: content, user, anime: id
-    }).pipe(
-      catchError((err: HttpErrorResponse, caught) => {
-        throw Error(err.statusText)
-      })
-    )
+    return this.httpClient.post<IReview>(`${apiURL}animes/${id}/posts/`,
+      {content: content, user, anime: id}, {withCredentials: true})
+      .pipe(
+        catchError((err: HttpErrorResponse, caught) => {
+          throw Error(err.statusText)
+        })
+      )
   }
 
 }

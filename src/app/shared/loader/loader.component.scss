@@ -1,0 +1,19 @@
+h1 {
+  font-size: var(--px-big-2);
+  position: absolute;
+  top:50%;
+  left:50%;
+  color: var(--clr-danger);
+  transform: translate(-50%,-50%);
+}
+.loader{
+  top: 50%;
+    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    background: var(--clr-font);
+    opacity: 87%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    z-index: 999;
+}

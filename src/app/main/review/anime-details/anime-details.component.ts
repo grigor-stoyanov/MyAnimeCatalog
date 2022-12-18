@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {IAnime} from "../../../interfaces";
+import {LoaderService} from "../../../shared/loader.service";
 
 @Component({
   selector: 'app-anime-details',
@@ -8,17 +9,19 @@ import {IAnime} from "../../../interfaces";
   styleUrls: ['./anime-details.component.scss']
 })
 export class AnimeDetailsComponent implements OnInit {
-  anime?: IAnime;
+  anime!: IAnime;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, router: Router, private loaderService: LoaderService) {
+    this.loaderService.hideLoader()
+    this.anime = this.activatedRoute.snapshot.data['anime']
+    if (!this.anime) {
+      router.navigate(['error'])
+    }
+
   }
 
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(
-      ({anime}) => {
-        this.anime = anime;
-      })
   }
 
 }

@@ -13,6 +13,7 @@ import * as $ from 'jquery';
 import {appInterceptorPrivider} from "./app.interceptor";
 import {ReviewComponent} from './main/review/review/review.component';
 import {APP_BASE_HREF} from "@angular/common";
+import {Error404Component} from "./core/error404/error404.component";
 
 const routes: Routes = [
   {
@@ -20,17 +21,22 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent
   },
-  {
-    path: '**',
-    redirectTo: 'not-found'
-  },
+
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   }, {
     path: 'review',
     loadChildren: () => import('./main/review/review.module').then(m => m.ReviewModule)
-  }
+  },
+  {
+    path: '**',
+    redirectTo: 'error'
+  },
+  {
+    path: 'error',
+    component: Error404Component
+  },
 ]
 
 @NgModule({
