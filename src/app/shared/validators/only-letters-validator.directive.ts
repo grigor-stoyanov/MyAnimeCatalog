@@ -17,7 +17,15 @@ export class OnlyLettersValidatorDirective implements Validator {
     const re = /^[A-Za-z]+$/
     return (control.value == '' || re.test(control.value)) ? null : {'onlyLetters': true};
   }
+
   constructor() {
   }
 
+}
+
+export function onlyLettersValidator(): ValidatorFn {
+  return (control) => {
+    const re = /^[A-Za-z]+$/
+    return (control.value == '' || re.test(control.value)) ? null : {'onlyLetters': true};
+  }
 }

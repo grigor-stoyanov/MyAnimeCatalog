@@ -1,11 +1,11 @@
 import {Directive, ElementRef, forwardRef, Input, Provider} from '@angular/core';
 import {
   AbstractControl,
-  ControlValueAccessor,
+  ControlValueAccessor, FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR, NgModel,
   ValidationErrors,
-  Validator
+  Validator, ValidatorFn
 } from "@angular/forms";
 
 // const FILE_VALUE_ACCESSOR = CONST_EXPR(
@@ -43,3 +43,5 @@ export class ImageValidatorDirective implements Validator {
     return null
   }
 }
+
+

@@ -13,7 +13,7 @@ export class AnimeDetailsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, router: Router, private loaderService: LoaderService) {
     this.loaderService.hideLoader()
-    this.anime = this.activatedRoute.snapshot.data['anime']
+    this.anime = this.activatedRoute?.snapshot?.data['anime']
     if (!this.anime) {
       router.navigate(['error'])
     }

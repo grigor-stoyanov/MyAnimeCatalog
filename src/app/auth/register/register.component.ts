@@ -4,6 +4,7 @@ import {UserService} from "../../services/fetch/user.service";
 import {Route, Router} from "@angular/router";
 import {catchError} from "rxjs";
 import {LocalService} from "../../services/storage/local-storage.service";
+import {LoaderService} from "../../shared/loader.service";
 
 @Component({
   selector: 'app-register',
@@ -28,13 +29,16 @@ export class RegisterComponent {
 
   constructor(private userService: UserService,
               private router: Router,
-              private localStorage:LocalService) {
+              private localStorage: LocalService,
+              private loaderService: LoaderService) {
   }
 
   registerHandler(form: NgForm): void {
     if (form.invalid) {
       return;
     }
+    this.loaderService.showLoader()
+
     const {email, username, password,} = form.value
     let formData = new FormData();
     formData.append('email', email)
@@ -44,11 +48,13 @@ export class RegisterComponent {
 
     this.userService.register(formData)
       .subscribe({
-        next: (resp) =>{
-          this.localStorage.saveSessionData('auth',resp)
+        next: (resp) => {
+          this.localStorage.saveSessionData('auth', resp)
+          this.loaderService.hideLoader()
           this.router.navigate(['/'])
         },
         error: (err) => {
+          this.loaderService.hideLoader()
           const {email, password, username, avatar} = err.error
           this.internalEmailError = email;
           this.internalUsernameError = username;

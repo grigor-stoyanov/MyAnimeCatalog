@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IAnime} from '../../interfaces/anime';
 import {environment} from '../../../environments/environment';
-import {IError, IReview} from "../../interfaces";
+import {IError, IProfile, IReview} from "../../interfaces";
 import {catchError, EMPTY, map, Observable, throwError} from "rxjs";
 import {CustomError, NO_MORE_POSTS, NO_POSTS} from "../../shared/custom-errors";
 
@@ -22,7 +22,9 @@ export class ApiService {
 
   getAnime(id: number) {
     return this.httpClient.get<IAnime>(`${apiURL}animes/${id}`)
-      .pipe(catchError((err, cauth) => EMPTY))
+      .pipe(catchError(
+        (err, cauth) => [null]
+      ))
   }
 
   getPosts(id: string, page: number | null = null) {
@@ -56,5 +58,6 @@ export class ApiService {
         })
       )
   }
+
 
 }

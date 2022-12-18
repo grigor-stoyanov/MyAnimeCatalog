@@ -3,6 +3,9 @@ import {interval, map, Observable, share, startWith, Subscription, take, timer} 
 import {UserService} from "../../services/fetch/user.service";
 import {DarkModeService} from "../../services/design/dark-mode.service";
 import {LocalService} from "../../services/storage/local-storage.service";
+import {LoaderService} from "../../shared/loader.service";
+import {ActivatedRoute, Route, Router, RouterStateSnapshot} from "@angular/router";
+import {IAuth, IUser} from "../../interfaces";
 
 @Component({
   selector: 'app-header',
@@ -22,7 +25,7 @@ export class HeaderComponent implements OnInit {
       })),
     share())
   intervalId: any;
-  user$ = this.userService.user$
+  user$:Observable<IAuth|undefined> = this.userService.user$
   label = this.themeService.currentMode$;
 
 
@@ -32,7 +35,17 @@ export class HeaderComponent implements OnInit {
     this.userService.logout().subscribe()
   }
 
-  constructor(private userService: UserService, private themeService: DarkModeService, private localService: LocalService) {
+  handleLoader(): void {
+    if (!(this.route.routerState.snapshot.url.includes('auth/profile'))) {
+      this.loaderService.showLoader()
+    }
+  }
+
+  constructor(private userService: UserService,
+              private themeService: DarkModeService,
+              private localService: LocalService,
+              private loaderService: LoaderService,
+              private route: Router) {
   }
 
   ngOnInit(): void {

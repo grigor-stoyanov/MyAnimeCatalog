@@ -3,6 +3,7 @@ import {UserService} from "../../services/fetch/user.service";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {LocalService} from "../../services/storage/local-storage.service";
+import {LoaderService} from "../../shared/loader.service";
 
 @Component({
   selector: 'app-login',
@@ -18,14 +19,18 @@ export class LoginComponent {
 
   constructor(private userService: UserService,
               private router: Router,
-              private localStorage: LocalService) {
+              private localStorage: LocalService,
+              private loaderService: LoaderService
+  ) {
   }
 
 
-  loginHandler(form: NgForm): void {
+  loginHandler(form: NgForm):
+    void {
     if (form.invalid) {
       return;
     }
+    this.loaderService.showLoader()
     const {username, password} = form.value
     this.userService.login(username, password)
       .subscribe({
@@ -35,10 +40,13 @@ export class LoginComponent {
           } else {
             this.localStorage.saveSessionData('auth', resp)
           }
-
+          this.loaderService.hideLoader()
           this.router.navigate(['/'])
         },
-        error: (err) => this.nonFieldErrors = err.error['non_field_errors']
+        error: (err) => {
+          this.nonFieldErrors = err.error['non_field_errors'];
+          this.loaderService.hideLoader()
+        }
       })
   }
 }

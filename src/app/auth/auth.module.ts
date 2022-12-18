@@ -3,9 +3,11 @@ import {CommonModule} from '@angular/common';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {provideRoutes, RouterModule, Routes} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {ProfileComponent} from './profile/profile.component';
+import {AnimeResolverResolver} from "../main/anime-resolver.resolver";
+import {ProfileResolverResolver} from "./profile-resolver.resolver";
 
 const routes: Routes = [
   {
@@ -17,8 +19,11 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'profile',
-    component: ProfileComponent
+    path: 'profile/:pk',
+    component: ProfileComponent,
+    resolve: {
+      profile: ProfileResolverResolver
+    }
   }
 ]
 
@@ -32,6 +37,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     RouterModule.forChild(routes)
   ]

@@ -1,4 +1,5 @@
 export interface IAuth {
-  username:string;
-  token:boolean;
+  pk: number;
+  username: string;
+  token: boolean;
 }

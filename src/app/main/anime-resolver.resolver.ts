@@ -13,13 +13,14 @@ import {LoaderService} from "../shared/loader.service";
   providedIn: 'root'
 })
 export class AnimeResolverResolver implements Resolve<IAnime | null> {
-  constructor(private router: Router, private apiService: ApiService) {
+  constructor(private router: Router, private apiService: ApiService, private loaderService: LoaderService) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): IAnime | null | Observable<IAnime> | Promise<IAnime> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const animeId = route.params['id']
 
     if (!animeId) {
+      this.loaderService.hideLoader()
       this.router.navigate(['/']);
       return null;
     }

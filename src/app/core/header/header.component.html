@@ -5,14 +5,19 @@
     </ng-container>
     <ng-container *ngIf="(user$|async)">
       <div>
-      <a class="profile-btn btn-primary"><i class="fa-solid fa-user"></i> Profile</a>
-      <p class="welcome">Welcome, {{(user$|async)?.username}}!</p>
+        <a class="profile-btn btn-primary" (click)="handleLoader()"
+           routerLink="auth/profile/{{(user$|async)?.pk}}"><i class="fa-solid fa-user"></i> Profile</a>
+        <a class="profile-btn btn-primary" routerLink="/"><i class="fa-solid fa-home"></i> Home</a>
+        <p class="welcome">Welcome, {{(user$|async)?.username}}!</p>
       </div>
     </ng-container>
     <time id="date-time">{{time$|async}}</time>
     <div>
-      <a *ngIf="!(user$|async)" class="btn-primary" routerLink="auth/login"><i class="fa-solid fa-arrow-up-right-from-square"></i> Sign In</a>
-      <button *ngIf="(user$|async)" class="btn-primary" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+      <a *ngIf="!(user$|async)" class="btn-primary" routerLink="auth/login"><i
+        class="fa-solid fa-arrow-up-right-from-square"></i> Sign In</a>
+      <button *ngIf="(user$|async)" class="btn-primary" (click)="logout()"><i
+        class="fa-solid fa-right-from-bracket"></i> Sign Out
+      </button>
       <app-toggle [label]="label"></app-toggle>
     </div>
   </div>
