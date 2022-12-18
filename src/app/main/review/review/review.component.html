@@ -1,5 +1,4 @@
 <section id="review">
   <app-anime-details></app-anime-details>
-  <app-new-review></app-new-review>
-  <app-review-posts></app-review-posts>
+  <app-review-posts *ngIf="user|async" ></app-review-posts>
 </section>

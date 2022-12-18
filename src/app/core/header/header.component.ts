@@ -16,9 +16,9 @@ export class HeaderComponent implements OnInit {
         year: "numeric",
         month: "long",
         day: "numeric",
-        hour:"numeric",
-        minute:"numeric",
-        second:"numeric"
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
       })),
     share())
   intervalId: any;
@@ -27,10 +27,12 @@ export class HeaderComponent implements OnInit {
 
 
   logout(): void {
+    this.localService.removeData('auth')
+    this.localService.removeSessionData('sauth')
     this.userService.logout().subscribe()
   }
 
-  constructor(private userService: UserService, private themeService: DarkModeService) {
+  constructor(private userService: UserService, private themeService: DarkModeService, private localService: LocalService) {
   }
 
   ngOnInit(): void {

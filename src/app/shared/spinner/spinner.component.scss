@@ -1,12 +1,10 @@
 :host {
   position: relative;
+  display: block;
 }
 
 .lds-ring {
   display: block;
-  position: absolute;
-  top: var(--px-big-1);
-  right: var(--px-big-3);
   transform: scale(1.5);
   width: 80px;
   height: 80px;

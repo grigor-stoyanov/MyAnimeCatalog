@@ -11,7 +11,7 @@
         <ul role="list" class="review__data">
           <li class="review__data__genre">Genres:
             <ul class="review__data__genres" role="list">
-              <li *ngFor="let value of genres"><a href="#">{{value|json}}</a>,</li>
+              <li *ngFor="let value of anime?.genres;let i = index"><a href="#">{{value}} {{i === value.length ? '' : ',&nbsp;' }}</a></li>
             </ul>
           </li>
           <li>Episodes: {{anime?.episodes || '?'}}</li>
@@ -27,7 +27,6 @@
                                                            aria-hidden="true"></i></button>
           <button class="btn-like btn-red" id="red"><i class="fa fa-thumbs-down fa-lg"
                                                        aria-hidden="true"></i></button>
-
           <span class="likes__span">85 Likes/ 3 Dislikes</span>
         </div>
       </div>

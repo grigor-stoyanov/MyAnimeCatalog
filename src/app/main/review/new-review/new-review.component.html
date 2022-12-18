@@ -1,11 +1,13 @@
-<form ngForm class="review__form">
+<form #form="ngForm" ngForm class="review__form" (ngSubmit)="postHandler(form)">
   <button type="submit" class="btn-primary btn-review">Post</button>
   <ckeditor
-      [editor]="Editor"
-      [(ngModel)]="model.editorData"
-      name="post"
-      tagName="div"
-			data=""
-  class="review__input">
-		</ckeditor>
+    [editor]="Editor"
+    [(ngModel)]="model.editorData"
+    name="content"
+    tagName="div"
+    data=""
+    class="review__input">
+  </ckeditor>
+  <p class="error">{{error}}</p>
 </form>
+

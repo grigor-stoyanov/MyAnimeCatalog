@@ -1,3 +1,10 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .review__form {
     display: flex;
     flex-direction: column;
@@ -45,4 +52,8 @@
     color: var(--clr-font);
   word-wrap:break-word;
   overflow-x: hidden;
+}
+
+.error {
+  color: var(--clr-danger);
 }

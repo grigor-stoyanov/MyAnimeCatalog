@@ -1,10 +1,7 @@
-<div class="review__comment">
-        <figure class="comment__figure"><img class="post__avatar" src="assets/background.png" alt=""></figure>
-        <div class="comment__details">
-          <p class="comment__user">Peter</p>
-          <p class="comment__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea nemo qui
-            sit. Consectetur
-            consequatur doloremque dolores eaque earum eius ex laborum molestiae nihil numquam quas,
-            quibusdam quod ratione totam vel.</p>
-        </div>
-      </div>
+<div class="review__comment" *ngFor="let comment of comments">
+  <figure class="comment__figure"><img class="post__avatar" src="assets/background.png" alt=""></figure>
+  <div class="comment__details">
+    <p class="comment__user">{{comment.user}}</p>
+    <p class="comment__content">{{comment.content}}</p>
+  </div>
+</div>

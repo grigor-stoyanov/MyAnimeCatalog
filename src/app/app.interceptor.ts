@@ -29,7 +29,7 @@ export class AppInterceptor implements HttpInterceptor {
           return EMPTY
         }
       }
-      const token = auth['token']
+      const token = (auth)?auth['token']:sauth['token']
       const headers = new HttpHeaders({'Authorization': `Token ${token}`});
       req = req.clone({url: req.url, headers: headers, withCredentials: false})
       return next.handle(req)

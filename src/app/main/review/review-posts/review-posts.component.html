@@ -1,19 +1,28 @@
+<app-new-review [postsList]="posts" *ngIf="user|async"></app-new-review>
 <div class="review__posts">
-  <div class="review__post">
-    <div class="review__post__wrapper">
-      <figure class="post__figure"><img class="post__avatar" src="assets/background.png" alt=""></figure>
-      <div class="post__details">
-        <p class="post__user">Spiderman</p>
-        <p class="post__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In itaque
-          minus odio
-          placeat, repellendus
-          repudiandae rerum tenetur? Animi atque culpa cupiditate dicta doloremque fuga illo, ipsum
-          officia
-          quidem, rerum sapiente.</p>
+  <ng-template #review>
+    <div class="review__post" *ngFor="let post of posts">
+      <div class="review__post__wrapper">
+        <figure class="post__figure"><img class="post__avatar" src="assets/background.png" alt=""></figure>
+        <div class="post__details">
+          <p class="post__user">{{post?.user}}</p>
+          <p class="post__content">{{post?.content}}</p>
+        </div>
       </div>
+      <app-post-comments [comments]="post?.comments"></app-post-comments>
     </div>
+    <p class="error">{{getReviewError}}</p>
+  </ng-template>
 
-    <app-post-comments></app-post-comments>
-
+  <ng-template #errorTemplate>
+    <p class="error">
+      {{errorDetail}}
+    </p>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="(error || !posts) ? errorTemplate: review"></ng-container>
+  <div>
+    <app-spinner *ngIf="isLoading"></app-spinner>
+    <button (click)="loadPostHandler()" class="btn-primary"> Load Posts</button>
   </div>
+
 </div>

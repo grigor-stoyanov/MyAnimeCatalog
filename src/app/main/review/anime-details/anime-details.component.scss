@@ -32,10 +32,16 @@ li > a {
 
 .btn-green {
   color: green;
+  border: none;
+  background: transparent;
+  height: 30px;
 }
 
 .btn-red {
   color: red;
+  height: 30px;
+  border: none;
+  background: transparent;
 }
 
 .likes {
@@ -47,7 +53,7 @@ li > a {
   position: relative;
   flex-shrink: 1;
   width: 40vw;
-
+  min-height: 60vh;
 }
 
 .review__image {
@@ -57,10 +63,14 @@ li > a {
   height: 100%;
   width: 100%;
   object-fit: fill;
+  min-height: 60vh;
 }
 
 .review__content {
   width: 60vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .review__flex {
@@ -70,10 +80,10 @@ li > a {
   justify-content: stretch;
   margin-left: auto;
   margin-right: auto;
+  align-self: flex-end;
 }
 
 .review__stats__flex {
-  margin-top: var(--px-small-4);
   display: flex;
   justify-content: space-between;
 }

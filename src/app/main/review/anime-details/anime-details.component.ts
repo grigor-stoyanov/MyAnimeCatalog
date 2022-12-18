@@ -9,7 +9,6 @@ import {IAnime} from "../../../interfaces";
 })
 export class AnimeDetailsComponent implements OnInit {
   anime?: IAnime;
-  genres: string[] | undefined = [];
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
@@ -19,9 +18,6 @@ export class AnimeDetailsComponent implements OnInit {
     this.activatedRoute.data.subscribe(
       ({anime}) => {
         this.anime = anime;
-        for (let value of this.anime?.genres?.values()!) {
-          this.genres = this.anime?.genres
-        }
       })
   }
 

@@ -1,4 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {NgForm} from "@angular/forms";
+import {ApiService} from "../../../services/fetch/api.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {LocalService} from "../../../services/storage/local-storage.service";
+import {IReview} from "../../../interfaces";
+import {data} from "jquery";
 
 const InlineEditor = require('@ckeditor/ckeditor5-build-inline')
 
@@ -10,14 +16,34 @@ const InlineEditor = require('@ckeditor/ckeditor5-build-inline')
   encapsulation: ViewEncapsulation.None
 })
 export class NewReviewComponent implements OnInit {
-  public editorData = `<p>This is a CKEditor 4 WYSIWYG editor instance created with Angular.</p>`;
   Editor = InlineEditor
   public model = {
-    editorData: '<p>Hello, world!</p>'
+    editorData: ''
   };
+  error: string | undefined;
 
+  @Input() postsList!: IReview[];
 
-  constructor() {
+  postHandler(form: NgForm) {
+    const user = this.localService.getData('auth')?.username
+    if (!user) {
+      return
+    }
+    let id = this.activatedRoute.snapshot.params['id']
+    id = parseInt(id)
+    const {content} = form.value
+    this.apiService.postReview(content, user, id)
+      .subscribe({
+          next: (value) => this.postsList.unshift(value),
+          error: (err) => this.error = err
+        }
+      )
+  }
+
+  constructor(private apiService: ApiService,
+              private activatedRoute: ActivatedRoute,
+              private localService: LocalService
+  ) {
   }
 
   ngOnInit(): void {
