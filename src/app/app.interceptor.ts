@@ -11,12 +11,16 @@ import {InjectionToken} from "@angular/core";
 import {UserService} from "./services/fetch/user.service";
 import {Router} from "@angular/router";
 import {LocalService} from "./services/storage/local-storage.service";
+import {LoaderService} from "./shared/loader.service";
 
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
 
-  constructor(private userService: UserService, private router: Router, private localService: LocalService) {
+  constructor(private userService: UserService,
+              private router: Router,
+              private localService: LocalService,
+              private loaderService: LoaderService) {
   }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -25,14 +29,21 @@ export class AppInterceptor implements HttpInterceptor {
     if (req.withCredentials) {
       if (!auth) {
         if (!sauth) {
+          this.loaderService.hideLoader()
           this.router.navigate(['auth/login'])
           return EMPTY
         }
       }
-      const token = (auth)?auth['token']:sauth['token']
+      const token = (auth) ? auth['token'] : sauth['token']
       const headers = new HttpHeaders({'Authorization': `Token ${token}`});
       req = req.clone({url: req.url, headers: headers, withCredentials: false})
-      return next.handle(req)
+      return next.handle(req).pipe(
+        catchError((err, cauth) => {
+            this.loaderService.hideLoader()
+            throw err
+          }
+        )
+      )
     }
 
 

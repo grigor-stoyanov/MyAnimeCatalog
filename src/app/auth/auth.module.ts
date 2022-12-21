@@ -19,7 +19,7 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'profile/:pk',
+    path: 'profile/:username',
     component: ProfileComponent,
     resolve: {
       profile: ProfileResolverResolver

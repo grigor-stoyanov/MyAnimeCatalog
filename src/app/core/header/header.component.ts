@@ -35,11 +35,7 @@ export class HeaderComponent implements OnInit {
     this.userService.logout().subscribe()
   }
 
-  handleLoader(): void {
-    if (!(this.route.routerState.snapshot.url.includes('auth/profile'))) {
-      this.loaderService.showLoader()
-    }
-  }
+
 
   constructor(private userService: UserService,
               private themeService: DarkModeService,

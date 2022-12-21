@@ -49,17 +49,16 @@ export class ProfileComponent implements OnInit {
     if (!this.profile) {
       router.navigate(['error'])
     }
-
     this.form.setValue(this.profile)
   }
 
-  editData() {
+  saveProfile() {
     if (this.form.invalid) {
       return
     }
     this.user$.subscribe(user => this.user = user)
 
-    this.userService.putProfile(this.user?.pk!, this.form.value)
+    this.userService.putProfile(this.user?.username!, this.form.value)
       .subscribe(
         {next: (value => value)})
 

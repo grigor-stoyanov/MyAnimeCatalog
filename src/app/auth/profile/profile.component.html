@@ -25,11 +25,11 @@
 
 
     <ng-template #formProfileData>
-      <form class="profile__data" [formGroup]="form" (ngSubmit)="editData()">
+      <form class="profile__data" [formGroup]="form" (ngSubmit)="saveProfile()">
 
         <div class="profile__data__text">
           <label>Username:</label>
-          <div formGroupName="user">
+          <div class="user_wrapper" formGroupName="user">
             <input formControlName="username" type="text">
           </div>
           <label>Email:</label> <input type="email" formControlName="email">
@@ -41,7 +41,7 @@
           </select>
           <label>Avatar:</label><input type="image" formControlName="avatar">
           <label>Bio:</label>
-          <textarea name="bio" formControlName="description"></textarea>
+          <textarea class="form__bio" name="bio" formControlName="description"></textarea>
         </div>
         <div class="form__button__group">
           <button type="submit" class="btn-primary">Save</button>

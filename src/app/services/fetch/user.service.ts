@@ -28,9 +28,9 @@ export class UserService {
   }
 
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     return this.http.post<IAuth>(`${apiURL}login/`, {
-      username, password
+      email, password
     }).pipe(
       tap(user => this.user$$.next(user))
     );
@@ -47,8 +47,8 @@ export class UserService {
     return this.http.get(`${apiURL}logout/`, {withCredentials: true})
   }
 
-  getProfile(pk: number) {
-    return this.http.get<IProfile>(`${apiURL}profile/${pk}/`, {withCredentials: true})
+  getProfile(username: string) {
+    return this.http.get<IProfile>(`${apiURL}profile/${username}/`, {withCredentials: true})
       .pipe(
         catchError((err, catch_) => {
             throw Error(err.statusText)
@@ -57,8 +57,8 @@ export class UserService {
       )
   }
 
-  putProfile(pk: number, body: any) {
-
-    return this.http.put<IProfile>(`${apiURL}profile/${pk}/`,body , {withCredentials: true})
+  putProfile(username: string, body: any) {
+    body.user = body['user'].username
+    return this.http.put<IProfile>(`${apiURL}profile/${username}/`, body, {withCredentials: true})
   }
 }

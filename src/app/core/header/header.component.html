@@ -5,8 +5,8 @@
     </ng-container>
     <ng-container *ngIf="(user$|async)">
       <div>
-        <a class="profile-btn btn-primary" (click)="handleLoader()"
-           routerLink="auth/profile/{{(user$|async)?.pk}}"><i class="fa-solid fa-user"></i> Profile</a>
+        <a class="profile-btn btn-primary"
+           routerLink="auth/profile/{{(user$|async)?.username}}"><i class="fa-solid fa-user"></i> Profile</a>
         <a class="profile-btn btn-primary" routerLink="/"><i class="fa-solid fa-home"></i> Home</a>
         <p class="welcome">Welcome, {{(user$|async)?.username}}!</p>
       </div>

@@ -1,13 +1,13 @@
 <div id="login">
   <p class="login__title">Sign In</p>
   <form #loginForm="ngForm" (submit)="loginHandler(loginForm)" class="login__form" enctype="multipart/form-data">
-    <input #usernameLogin="ngModel" ngModel class="login__input" name="username" placeholder="Username" type="text"
-           required onlyLetters>
-    <ng-container *ngIf="usernameLogin.touched">
-      <p class="error" *ngIf="usernameLogin.errors?.['required']">
+    <input #emailLogin="ngModel" ngModel class="login__input" name="email" placeholder="Email" type="text"
+           required email>
+    <ng-container *ngIf="emailLogin.touched">
+      <p class="error" *ngIf="emailLogin.errors?.['required']">
         Username is required!
       </p>
-      <p class="error" *ngIf="usernameLogin.errors?.['onlyLetters']">
+      <p class="error" *ngIf="emailLogin.errors?.['onlyLetters']">
         Username must only contain letters!
       </p>
     </ng-container>

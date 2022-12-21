@@ -31,8 +31,8 @@ export class LoginComponent {
       return;
     }
     this.loaderService.showLoader()
-    const {username, password} = form.value
-    this.userService.login(username, password)
+    const {email, password} = form.value
+    this.userService.login(email, password)
       .subscribe({
         next: (resp) => {
           if (this.isRemembered.nativeElement.checked) {

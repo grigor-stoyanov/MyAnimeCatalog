@@ -19,13 +19,8 @@ export class ProfileResolverResolver implements Resolve<IProfile | null> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): IProfile | null | Observable<IProfile> | Promise<IProfile> {
-    const profile = route.params['pk']
-
-    if (!profile) {
-      this.loaderService.hideLoader()
-      this.router.navigate(['/']);
-      return null;
-    }
+    const profile = route.params['username']
+    this.loaderService.showLoader()
     return this.userService.getProfile(profile)
   }
 }

@@ -20,8 +20,7 @@
   object-position: center, center;
 }
 
-.profile__addons,
-.profile__card {
+.profile__card, .profile__addons {
   margin-top: var(--px-big-2);
   background-color: var(--clr-secondary);
   border-radius: 10px;
@@ -40,7 +39,6 @@
 
 .profile__data {
   display: flex;
-  gap: var(--px-big-1);
   flex-direction: column;
   align-items: center;
   width: 20vw;
@@ -51,12 +49,7 @@
   margin-top: var(--px-small-3);
 }
 
-.profile__data__text {
-  align-self: flex-start;
-  margin-left: var(--px-small-4);
-}
-
-.display__btn__grp,.form__button__group {
+.display__btn__grp, .form__button__group {
   margin-left: 30px
 }
 
@@ -67,11 +60,46 @@
 }
 
 form .profile__data__text {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap:24px
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
+form .profile__data__text input, form .profile__data__text select {
+  flex-basis: 66%;
+  width: 66%;
+  margin-top: var(--px-small-2);
+}
+
+form .profile__data__text .form__bio {
+  height: var(--px-big-3);
+  border: 2px solid var(--clr-darkblue);
+  border-radius: 7px;
+  resize: vertical;
+  background: var(--clr-grey);
+  color: var(--clr-font);
+  word-wrap: break-word;
+  overflow-x: hidden;
+  margin-top: var(--px-small-2)
+}
+
+form .profile__data__text .user_wrapper {
+  width: 66%;
+}
+
+form .profile__data__text .user_wrapper input {
+  width: 100%;
+}
+
+
+form .profile__data__text label {
+  flex-basis: 33%;
+  width: 33%;
+  font-size: var(--px-small-2);
+  font-weight: bold;
+  margin-top: var(--px-small-2);
+}
 
 
 input {
