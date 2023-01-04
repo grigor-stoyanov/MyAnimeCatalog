@@ -16,8 +16,9 @@ urlpatterns = [
     path('logout/', LogoutAPI.as_view(), name='logout'),
     path('animes/<int:pk>/', AnimeGetAPI.as_view(), name='get anime'),
     path('animes/<int:pk>/posts/', PostListCreateAPI.as_view(), name='get posts'),
+    # TODO UPDATE TO WORK WITH USER_TAG
     path('animes/<int:pk>/posts/<str:user>/', PostDestroyUpdate.as_view(), name='alter posts'),
-    path('profile/<str:username>/', ProfileGetAPI.as_view(), name='get profile'),
+    path('profile/<str:user>/', ProfileGetAPI.as_view(), name='get profile'),
     # TODO NOT YET IMPLEMENTED
     path('animes/<int:pk>/posts/<str:user>/<int:post>/', CommentCreateGet.as_view(), name='alter posts'),
 ]

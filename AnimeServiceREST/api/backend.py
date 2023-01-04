@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from rest_framework import filters
 
 MyUser = get_user_model()
 
