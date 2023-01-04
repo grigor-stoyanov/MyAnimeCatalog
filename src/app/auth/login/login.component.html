@@ -7,8 +7,8 @@
       <p class="error" *ngIf="emailLogin.errors?.['required']">
         Username is required!
       </p>
-      <p class="error" *ngIf="emailLogin.errors?.['onlyLetters']">
-        Username must only contain letters!
+      <p class="error" *ngIf="emailLogin.errors?.['email']">
+        Please enter email!
       </p>
     </ng-container>
     <input #passwordLogin="ngModel" ngModel class="login__input" name="password" placeholder="Password" type="password"

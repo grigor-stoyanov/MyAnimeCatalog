@@ -1,25 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {LoaderService} from "../../shared/loader.service";
 import {FormBuilder, Validators} from "@angular/forms";
-import {
-  onlyLettersValidator,
-} from "../../shared/validators/only-letters-validator.directive";
-import {ActivatedRoute, Router} from "@angular/router";
+import {onlyLettersValidator,} from "../../shared/validators/only-letters-validator.directive";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {UserService} from "../../services/fetch/user.service";
-import {flattenObject} from "../../shared/flatten";
-import {IAuth} from "../../interfaces";
+import {IAuth, IProfile} from "../../interfaces";
+import {Subscription} from "rxjs";
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnDestroy {
   isShown: boolean = true;
-  profile;
   user$ = this.userService.user$
   user: IAuth | undefined;
+  profile: any;
+  routerSub: Subscription;
   form = this.fb.group(
     {
       user: this.fb.group(
@@ -28,7 +27,8 @@ export class ProfileComponent implements OnInit {
           id: [''],
           last_login: [''],
           is_superuser: [''],
-          is_staff: ['']
+          is_staff: [''],
+          user_tag: ['']
         }),
       email: ['', [Validators.required, Validators.email]],
       gender: [''],
@@ -44,12 +44,14 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder,
               private userService: UserService) {
-    this.loaderService.hideLoader();
-    this.profile = this.activatedRoute?.snapshot?.data['profile']
-    if (!this.profile) {
-      router.navigate(['error'])
-    }
-    this.form.setValue(this.profile)
+    this.routerSub =
+      this.router.events.subscribe(e => {
+        if (e instanceof NavigationEnd) {
+          this.loaderService.hideLoader();
+          this.profile = activatedRoute.snapshot.data['profile']
+          this.form.setValue(this.profile)
+        }
+      })
   }
 
   saveProfile() {
@@ -64,7 +66,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnDestroy() {
+    this.routerSub.unsubscribe()
   }
-
 }

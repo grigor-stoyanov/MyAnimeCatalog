@@ -21,6 +21,7 @@ const routes: Routes = [
   {
     path: 'profile/:username',
     component: ProfileComponent,
+    runGuardsAndResolvers: "always",
     resolve: {
       profile: ProfileResolverResolver
     }

@@ -4,4 +4,5 @@ export interface IUser {
   last_login:Date;
   is_superuser:boolean;
   is_staff:boolean;
+  user_tag:number;
 }

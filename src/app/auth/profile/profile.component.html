@@ -17,7 +17,8 @@
           <p class="profile__bio">{{profile?.description}}</p>
         </div>
       </div>
-      <div *ngIf="(user$|async)?.username===profile.user.username" class="display__btn__grp">
+      <div *ngIf="(user$|async)?.username===profile.user.username&&(user$|async)?.tag===profile.user.user_tag"
+           class="display__btn__grp">
         <button type="button" class="btn-primary" (click)="isShown=!isShown">Edit</button>
         <button type="button" class="btn-secondary">Delete</button>
       </div>

@@ -7,13 +7,14 @@ import {MainModule} from "./main/main.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "./shared/shared.module";
-import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
+import {DefaultUrlSerializer, PreloadAllModules, RouterModule, Routes, UrlSerializer} from "@angular/router";
 import {HomeComponent} from "./main/home/home/home.component";
 import * as $ from 'jquery';
 import {appInterceptorPrivider} from "./app.interceptor";
 import {ReviewComponent} from './main/review/review/review.component';
 import {APP_BASE_HREF} from "@angular/common";
 import {Error404Component} from "./core/error404/error404.component";
+import {CustomUrlSerializer} from "./url.serializer";
 
 const routes: Routes = [
   {
@@ -56,7 +57,8 @@ const routes: Routes = [
   ],
   providers: [
     appInterceptorPrivider,
-    {provide: APP_BASE_HREF, useValue: '/'}
+    {provide: UrlSerializer, useClass: CustomUrlSerializer},
+    DefaultUrlSerializer
   ],
   bootstrap: [AppComponent]
 })

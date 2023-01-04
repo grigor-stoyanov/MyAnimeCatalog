@@ -4,6 +4,7 @@ import {IAuth, IProfile, IUser} from "../../interfaces";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {LocalService} from "../storage/local-storage.service";
+import {Router} from "@angular/router";
 
 const apiURL = environment['apiURL']
 
@@ -15,7 +16,7 @@ export class UserService {
   user$: Observable<IAuth | undefined> = this.user$$.asObservable()
   user: IUser | IAuth | null = null
 
-  constructor(private http: HttpClient, private localStorage: LocalService) {
+  constructor(private http: HttpClient, private localStorage: LocalService, private router: Router) {
     const auth = this.localStorage.getData('auth')
     const sauth = this.localStorage.getSessionData('auth')
     if (auth) {
@@ -48,9 +49,13 @@ export class UserService {
   }
 
   getProfile(username: string) {
+    username = username.replace('#', '%23')
     return this.http.get<IProfile>(`${apiURL}profile/${username}/`, {withCredentials: true})
       .pipe(
         catchError((err, catch_) => {
+            if (err.status === 404) {
+              this.router.navigate(['error'])
+            }
             throw Error(err.statusText)
           }
         )

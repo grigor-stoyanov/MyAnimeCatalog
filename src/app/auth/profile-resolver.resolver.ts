@@ -14,7 +14,6 @@ import {UserService} from "../services/fetch/user.service";
   providedIn: 'root'
 })
 export class ProfileResolverResolver implements Resolve<IProfile | null> {
-
   constructor(private router: Router, private userService: UserService, private loaderService: LoaderService) {
   }
 
