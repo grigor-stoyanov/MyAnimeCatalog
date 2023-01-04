@@ -135,3 +135,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+SILENCED_SYSTEM_CHECKS = ["auth.E003"]
+AUTHENTICATION_BACKENDS = ['AnimeServiceREST.api.backend.UsernameAndUserTag',
+                           'django.contrib.auth.backends.ModelBackend']
