@@ -7,7 +7,7 @@ from AnimeServiceREST.api.models import Profile
 from AnimeServiceREST.api.serializers import UserProfileSerializer
 
 
-class ProfileGetAPI(generics.RetrieveUpdateAPIView):
+class ProfileGetAPI(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [AllowAny, ]
     serializer_class = UserProfileSerializer
     queryset = Profile
@@ -19,14 +19,5 @@ class ProfileGetAPI(generics.RetrieveUpdateAPIView):
         except (self.queryset.DoesNotExist, ValueError):
             raise Http404
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+    def perform_destroy(self, instance):
+        instance.user.delete()

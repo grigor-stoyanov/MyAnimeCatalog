@@ -23,12 +23,6 @@ class AnimeSerializer(ModelSerializer):
         return representation
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        exclude = ('user',)
-
-
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(validators=(UniqueValidator(queryset=Profile.objects.all()),))
@@ -99,15 +93,21 @@ class CommentSerializer(serializers.ModelSerializer):
 class UserForProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'last_login', 'is_staff', 'is_superuser')
+        fields = ('id', 'username', 'last_login', 'is_staff', 'is_superuser', 'user_tag')
+        read_only_fields = ('id', 'last_login', 'is_staff', 'is_superuser', 'user_tag')
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserForProfileSerializer()
+
     class Meta:
         model = Profile
         fields = '__all__'
 
-    def to_representation(self, instance):
-        representation = super(UserProfileSerializer, self).to_representation(instance)
-        representation['user'] = UserForProfileSerializer(instance.user).data
-        return representation
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop('user')
+        user_serializer = UserForProfileSerializer()
+        super(self.__class__, self).update(instance, validated_data)
+        super(UserForProfileSerializer, user_serializer).update(instance.user, user_data)
+        return instance
+
