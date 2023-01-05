@@ -136,5 +136,5 @@ REST_FRAMEWORK = {
     ),
 }
 SILENCED_SYSTEM_CHECKS = ["auth.E003"]
-AUTHENTICATION_BACKENDS = ['AnimeServiceREST.api.backend.UsernameAndUserTag',
+AUTHENTICATION_BACKENDS = ['AnimeServiceREST.api.helpers.backend.UsernameAndUserTag',
                            'django.contrib.auth.backends.ModelBackend']

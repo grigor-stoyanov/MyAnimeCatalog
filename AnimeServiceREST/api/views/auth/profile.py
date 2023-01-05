@@ -3,12 +3,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+
+from AnimeServiceREST.api.helpers.permissions import UserUpdatePermission
 from AnimeServiceREST.api.models import Profile
 from AnimeServiceREST.api.serializers import UserProfileSerializer
 
 
 class ProfileGetAPI(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [AllowAny, ]
+    permission_classes = [IsAuthenticated, UserUpdatePermission]
     serializer_class = UserProfileSerializer
     queryset = Profile
 
