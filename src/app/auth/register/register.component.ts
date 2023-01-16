@@ -17,7 +17,7 @@ export class RegisterComponent {
   internalUsernameError: string[] | undefined;
   internalAvatarError: string[] | undefined;
 
-  // TODO Make File Accessor Directive for this.
+  // TODO Optimize with file accessor directive
   changeName(ev: any) {
     try {
       ev.target.parentNode.dataset['text'] = ev.target.files[0].name

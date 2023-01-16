@@ -62,8 +62,8 @@ export class UserService {
       )
   }
 
-  putProfile(username: string, body: any) {
-    body.user = body['user'].username
-    return this.http.put<IProfile>(`${apiURL}profile/${username}/`, body, {withCredentials: true})
+  putProfile(user: IAuth, body: FormData | undefined): any {
+    const username = `${user.username}%23${user.tag}`
+    return this.http.patch<IProfile>(`${apiURL}profile/${username}/`, body, {withCredentials: true})
   }
 }

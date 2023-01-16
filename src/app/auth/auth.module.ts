@@ -8,6 +8,7 @@ import {SharedModule} from "../shared/shared.module";
 import {ProfileComponent} from './profile/profile.component';
 import {AnimeResolverResolver} from "../main/anime-resolver.resolver";
 import {ProfileResolverResolver} from "./profile-resolver.resolver";
+import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RxReactiveFormsModule,
     SharedModule,
     RouterModule.forChild(routes)
   ]
