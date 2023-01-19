@@ -49,8 +49,8 @@ class LoginSerializer(serializers.Serializer):
         email = attrs.get('email')
         password = attrs.get('password')
         if email and password:
-            username = Profile.objects.filter(email=email).first().user
-            user = authenticate(request=self.context.get('request'), username=username, password=password)
+            user = User.objects.filter(profile__email=email).first()
+            user = authenticate(request=self.context.get('request'), user=user, password=password)
             attrs.update({'user': user})
             if not user:
                 msg = ('Unable to log in with provided credentials.')
@@ -104,10 +104,4 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
 
-    def update(self, instance, validated_data):
-        user_data = validated_data.pop('user')
-        user_serializer = UserForProfileSerializer()
-        super(self.__class__, self).update(instance, validated_data)
-        super(UserForProfileSerializer, user_serializer).update(instance.user, user_data)
-        return instance
 
