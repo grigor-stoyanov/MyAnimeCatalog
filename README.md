@@ -1,27 +1,72 @@
 # MyAnimeCatalog
+This was my project for defense exam of completed **Front-End HTML/Angular Course**. Its mainly meant to showcase what I have learned using the angular framework and HTML/CSS design layouts. It also communicates to a self made backend built on **Django Rest Framework**. The backend is committed to a seperate [branch](https://github.com/grigor-stoyanov/MyAnimeCatalog/tree/backend).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
 
-## Development server
+## Table of contents
+* [General info](#general-info)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Status](#status)
+* [Other](#other)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## General Info
+The app is basically a [MyAnimeList](https://myanimelist.net/) clone with an attempt at a more **updated** and **modern** design style. It functions as a review/forum **SPA** for shows and featers a custom user service and themes(dark/light) **preserved** trough the session/life of the application.There are different views for authenticated/unaothenticated users which are **segregated** in lazy loaded modules and also **resolve** data during navigation and **guard** for unaothorized access. Template and Reactive Forms with both front-end and server side **validation** which is dynamically displayed. Each view features custom components **Carousel**(Endless Horizontal Scroll which fetches paginated Data), **Editable** Text Area (Using CKEditor to style text in html format), **Fully Customizable** Profile (username with unique together 4 number code), **Reactive** loading of user posts and comments and some others still in implementation. The authentication for the requests uses **Token Authenticatoin** which is saved troughout the session of the user and shared between the view states trough **Observables and RxJS**.
 
-## Code scaffolding
+## Features
+* All CRUD Operations
+* Lazy Loaded Rotues and Navigation with resolvers
+* Token Authentication with interceptors
+* Asynchronous Data Persistance trough RxJS and Observables
+* Interactive Components with pipes, directives and EventListeners
+* Custom TypeScript Interfaces for database model
+* HTML/CSS design layout with flex and css variables
+* Asynchronous request services to RESTful API with error handling
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Technologies
+* [Angular 14](https://v14.angular.io/docs)
+* [DRF 3](https://www.django-rest-framework.org/)  
+* [RxJS](https://rxjs.dev/guide/overview)
+* [TypeScript](https://www.typescriptlang.org/docs/)
+* [CKEditor5](https://ckeditor.com/docs/ckeditor5/latest/index.html)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Screenshots
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Setup
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Clone repo(```git clone https://github.com/grigor-stoyanov/tasktell```)
 
-## Further help
+### Prerequesites
+DRF backend service and [Python](https://www.python.org/downloads/)
+Clone Backend Branch(```git clone https://github.com/grigor-stoyanov/MyAnimeCatalog.git backend```)
+Install python dependencies from new folder(```pip install -r requirements.txt```)
+> **Note** This will install them globally if you want to install it locally create a virtual environment see [backend branch](https://github.com/grigor-stoyanov/MyAnimeCatalog/tree/backend).
+Start REST server(```python -m manage runserver```)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[Angular CLI](https://github.com/angular/angular-cli) version 14.2.8
+You can install this with project's dependencies
+[NodeJS](https://nodejs.org/en/) version minimum of 14.15
+
+
+### Installation
+1. Install Dependencies(```npm install --save-dev```)  
+2. From here if you have [Angular CLI](https://github.com/angular/angular-cli) globally you cans tart with(```ng serve```) or just (```npm start```)
+
+
+## Status
+Project is still in development currently working on some key features:
+- [ ] Search bar with dynamic suggestions and filtering
+- [ ] Review Posts CRUD Operations and point sorting system
+- [ ] Updated View of User Profiles with Follow and Recent Posts Options
+- [ ] Responsive Design
+
+
+## Other
+| ![image](https://user-images.githubusercontent.com/76039296/217279449-93faa114-667a-4183-96cb-60d5393da610.png) |
+|-|
+[Linkedin](https://www.linkedin.com/feed/)
+[Certificate](https://softuni.bg/certificates/details/152839/edf0c74f)
