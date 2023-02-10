@@ -5,6 +5,7 @@ This was my project for defense exam of completed **Front-End HTML/Angular Cours
 ## Table of contents
 * [General info](#general-info)
 * [Features](#features)
+* [Structure](#structure)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [Setup](#setup)
@@ -23,6 +24,54 @@ The app is basically a [MyAnimeList](https://myanimelist.net/) clone with an att
 * Custom TypeScript Interfaces for database model
 * HTML/CSS design layout with flex and css variables
 * Asynchronous request services to RESTful API with error handling
+
+## Structure
+The App Module acts as a body of the document and provides base structure of the document.    
+The core is comprised of static components that rarely change or usually part of the body.  
+Main Module contains the primary Router Outlet for the view model.  
+Shared Module Includes Components and directives shared between all other Modules.  
+Auth Module is responsible for all authentication and user realted views.    
+Main is comprised of SubModules with components relating to their respective views.  
+Each SubModule has its own base RootRoute and ChildrenRoutes.  
+
+.
+├── src
+│   ├── app
+│   │   ├── auth
+│   │   │   ├── login
+│   │   │   ├── profile
+│   │   │   └── register
+│   │   ├── core
+│   │   │   ├── error404
+│   │   │   ├── footer
+│   │   │   └── header
+│   │   ├── interfaces
+│   │   ├── main
+│   │   │   ├── home
+│   │   │   │   ├── carousel
+│   │   │   │   ├── carousel-item
+│   │   │   │   ├── home
+│   │   │   │   └── search
+│   │   │   ├── main
+│   │   │   └── review
+│   │   │       ├── anime-details
+│   │   │       ├── new-review
+│   │   │       ├── post-comments
+│   │   │       ├── review
+│   │   │       └── review-posts
+│   │   ├── services
+│   │   │   ├── design
+│   │   │   ├── fetch
+│   │   │   └── storage
+│   │   └── shared
+│   │       ├── loader
+│   │       ├── spinner
+│   │       ├── star-rating
+│   │       ├── toggle
+│   │       └── validators
+│   ├── assets
+│   └── environments
+└── temp
 
 
 ## Technologies
