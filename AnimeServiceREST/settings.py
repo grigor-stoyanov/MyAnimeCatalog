@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'AnimeServiceREST.api',
     'corsheaders',
     'rest_framework',
@@ -122,6 +124,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 
 # Default primary key field type
@@ -142,3 +147,9 @@ REST_FRAMEWORK = {
 SILENCED_SYSTEM_CHECKS = ["auth.E003"]
 AUTHENTICATION_BACKENDS = ['AnimeServiceREST.api.backend.UsernameAndUserTag',
                            'django.contrib.auth.backends.ModelBackend']
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dobjzyc2f',
+    'API_KEY': '119582534876734',
+    'API_SECRET': 'hNoFu0xlL2oLig-a2HuAXV-1A9M'
+}
