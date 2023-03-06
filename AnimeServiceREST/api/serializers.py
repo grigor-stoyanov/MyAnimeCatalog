@@ -9,6 +9,20 @@ from AnimeServiceREST.api.models import AnimeModel, Profile, UsersModel, Post, C
 
 User = get_user_model()
 
+class UserForProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'last_login', 'is_staff', 'is_superuser', 'user_tag')
+        read_only_fields = ('id', 'last_login', 'is_staff', 'is_superuser', 'user_tag')
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserForProfileSerializer()
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
 
 class AnimeSerializer(ModelSerializer):
     class Meta:
@@ -69,6 +83,13 @@ class CommentForPostSerializer(serializers.ModelSerializer):
         return representation
 
 
+class UserProfileSerializerForPost(serializers.ModelSerializer):
+    username=serializers.CharField(source='user.username')
+    user_tag=serializers.CharField(source='user.user_tag')
+    class Meta:
+        model=Profile
+        fields=('avatar','username','user_tag')
+    
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
@@ -77,7 +98,7 @@ class PostSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super(PostSerializer, self).to_representation(instance)
         representation['anime'] = instance.anime.title
-        representation['user'] = instance.user.user.username
+        representation['user'] = UserProfileSerializerForPost(instance=instance.user).data
         comments = instance.comment_set.through.objects.filter(post_id=instance.pk)
         comments = [ele.comment for ele in comments]
         representation['comments'] = CommentForPostSerializer(comments, many=True).data
@@ -90,18 +111,5 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserForProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'last_login', 'is_staff', 'is_superuser', 'user_tag')
-        read_only_fields = ('id', 'last_login', 'is_staff', 'is_superuser', 'user_tag')
-
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserForProfileSerializer()
-
-    class Meta:
-        model = Profile
-        fields = '__all__'
 
 

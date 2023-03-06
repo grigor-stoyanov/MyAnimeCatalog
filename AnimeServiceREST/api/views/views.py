@@ -13,14 +13,13 @@ User = get_user_model()
 
 
 
-# TODO Fix ability to post by user
 class PostListCreateAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = PostSerializer
     pagination_class = SmallResultsSetPagination
 
     def create(self, request, *args, **kwargs):
-        request.data['user'] = Profile.objects.filter(user__username=request.data['user']).first().pk
+        request.data['user'] = Profile.objects.filter(user__username=request.data['username'],user__user_tag=request.data['tag']).first().pk
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

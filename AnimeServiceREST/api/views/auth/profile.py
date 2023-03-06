@@ -12,7 +12,7 @@ from AnimeServiceREST.api.serializers import UserProfileSerializer
 
 
 class ProfileGetAPI(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [AllowAny, UserUpdatePermission]
+    permission_classes = [IsAuthenticated, UserUpdatePermission]
     serializer_class = UserProfileSerializer
     queryset = Profile
     parser_classes = [FormParser, MultiPartParser, FileUploadParser]
