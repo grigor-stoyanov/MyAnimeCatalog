@@ -49,12 +49,15 @@ export class ApiService {
   }
 
 
-  postReview(content: string, user: string, id: number) {
+  postReview(content: string, username: string,tag:string, id: number) {
     return this.httpClient.post<IReview>(`${apiURL}animes/${id}/posts/`,
-      {content: content, user, anime: id}, {withCredentials: true})
+      {content: content, username,tag, anime: id}, {withCredentials: true})
       .pipe(
         catchError((err: HttpErrorResponse, caught) => {
-          throw Error(err.statusText)
+          if (err.error.non_field_errors){
+            throw Error(err.error.non_field_errors[0])
+          }
+          throw Error(err.error.content[0])
         })
       )
   }

@@ -25,14 +25,14 @@ export class NewReviewComponent implements OnInit {
   @Input() postsList!: IReview[];
 
   postHandler(form: NgForm) {
-    const user = this.localService.getData('auth')?.username
-    if (!user) {
+    const auth = this.localService.getData('auth') 
+    if (!auth) {
       return
     }
     let id = this.activatedRoute.snapshot.params['id']
     id = parseInt(id)
     const {content} = form.value
-    this.apiService.postReview(content, user, id)
+    this.apiService.postReview(content, auth.username,auth.tag, id)
       .subscribe({
           next: (value) => this.postsList.unshift(value),
           error: (err) => this.error = err
