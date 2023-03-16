@@ -10,10 +10,12 @@
 .error {
   color: var(--clr-danger);
 }
-
+.review__post__wrapper{
+  min-height: var(--px-big-4);
+}
 .post__avatar {
   position: absolute;
-  top: 0;
+  top: 0; 
   left: 0;
   height: 100%;
   width: 100%;
@@ -23,7 +25,7 @@
 .post__figure {
   position: relative;
   flex-shrink: 1;
-  width: 10vw;
+  flex-basis: 15%;
 }
 
 .review__post__wrapper {
@@ -37,4 +39,7 @@
   padding: var(--px-small-3);
   background-color: var(--clr-secondary);
 
+}
+.post__details{
+  flex-basis: 85%;
 }

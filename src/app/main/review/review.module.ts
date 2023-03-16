@@ -11,6 +11,7 @@ import {PostCommentsComponent} from './post-comments/post-comments.component';
 import {CKEditorModule, CKEditorComponent} from "@ckeditor/ckeditor5-angular";
 import {FormsModule} from "@angular/forms";
 import {AnimeResolverResolver} from "../anime-resolver.resolver";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {

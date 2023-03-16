@@ -9,6 +9,8 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
 import {Error404Component} from '../core/error404/error404.component';
 import {RouterModule} from "@angular/router";
 import { LoaderComponent } from './loader/loader.component';
+import { SlideInOutDirectiveDirective } from './animation/animation-accordion.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -21,10 +23,12 @@ import { LoaderComponent } from './loader/loader.component';
     StarRatingComponent,
     Error404Component,
     LoaderComponent,
+    SlideInOutDirectiveDirective,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    
   ]
   ,
     exports: [
@@ -34,7 +38,8 @@ import { LoaderComponent } from './loader/loader.component';
         MatchPaswordValidatorDirective,
         ImageValidatorDirective,
         StarRatingComponent,
-        LoaderComponent
+        LoaderComponent,
+        SlideInOutDirectiveDirective
     ]
 })
 export class SharedModule {

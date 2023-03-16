@@ -29,9 +29,22 @@
     box-shadow: 0 0 10px var(--clr-darkblue);
 }
 
+.post-buttons{
+  display: flex;
+  gap:2px;
+}
+
 .btn-review{
   width: 20vw;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
+.btn-split{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
+
+
 :host div .ck-blurred{
     width: 80vw;
     height: var(--px-big-4);

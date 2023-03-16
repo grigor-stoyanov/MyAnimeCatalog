@@ -7,6 +7,11 @@ export class LocalService {
 
   constructor() {
   }
+  public getSessionOrLocalData(key:string){
+    const sitem = sessionStorage.getItem(key)
+    const litem = localStorage.getItem(key)
+    return (sitem) ? JSON.parse(sitem): (litem) ? JSON.parse(litem): null;
+  }
 
   public saveSessionData(key:string,value:any){
     sessionStorage.setItem(key, JSON.stringify(value));

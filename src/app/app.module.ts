@@ -15,7 +15,6 @@ import {ReviewComponent} from './main/review/review/review.component';
 import {APP_BASE_HREF} from "@angular/common";
 import {Error404Component} from "./core/error404/error404.component";
 import {CustomUrlSerializer} from "./url.serializer";
-
 const routes: Routes = [
   {
     path: '',
@@ -43,7 +42,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,
