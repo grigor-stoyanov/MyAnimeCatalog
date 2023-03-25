@@ -34,6 +34,7 @@ export class NewReviewComponent implements OnInit {
 
     if (!this.hidden) {
       this.hidden = true;
+      this.destroy = true;
       return
     }
     const auth = this.localService.getSessionOrLocalData('auth')

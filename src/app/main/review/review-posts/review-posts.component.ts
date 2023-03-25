@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ApiService} from "../../../services/fetch/api.service";
-import {ActivatedRoute} from "@angular/router";
-import {IAnime, IError, IReview} from "../../../interfaces";
-import {UserService} from "../../../services/fetch/user.service";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ApiService } from "../../../services/fetch/api.service";
+import { ActivatedRoute } from "@angular/router";
+import { IAnime, IError, IReview } from "../../../interfaces";
+import { UserService } from "../../../services/fetch/user.service";
+import { PinnedPostsService } from 'src/app/services/storage/pinned-posts.service';
+import { Observable, Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +14,7 @@ import {UserService} from "../../../services/fetch/user.service";
   encapsulation: ViewEncapsulation.None
 
 })
-export class ReviewPostsComponent implements OnInit {
+export class ReviewPostsComponent implements OnDestroy {
   user = this.userService.user$
   posts: IReview[] = [];
   error: IError | null = null;
@@ -20,6 +22,28 @@ export class ReviewPostsComponent implements OnInit {
   getReviewError: string | undefined;
   isLoading: boolean = false;
   pageCounter: number | null = null;
+  subscription: Subscription;
+  pinnedPosts: Array<IReview> | undefined;
+
+  pinPost(post: IReview) {
+    if (this.pinnedPosts?.some((v, _, ar) => v.id == post.id)) {
+      this.pinnedPostsService.unpinReview(post)
+    } else {
+      this.pinnedPostsService.pinReview(post)
+    }
+  }
+
+  public getClass(post: IReview) {
+    let status = ''
+     this.pinnedPosts?.forEach((v, _) => {
+      if (v.id == post.id) {
+         status = 'pinned'
+      }
+    })
+    return status
+  }
+
+
 
   loadPostHandler() {
     this.isLoading = true;
@@ -45,11 +69,13 @@ export class ReviewPostsComponent implements OnInit {
       })
   }
 
-  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute, private userService: UserService) {
+  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute,
+    private userService: UserService, private pinnedPostsService: PinnedPostsService) {
+    this.loadPostHandler()
+    this.subscription = this.pinnedPostsService.pinned_reviews$.subscribe(val => this.pinnedPosts = val)
   }
-
-  ngOnInit(): void {
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
 }

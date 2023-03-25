@@ -5,9 +5,13 @@
       <div class="review__post__wrapper">
         <figure class="post__figure"><img class="post__avatar" src={{post.user.avatar}} alt=""></figure>
         <div class="post__details">
-          <p class="post__user">{{post.user.username}}#{{post.user.user_tag}}</p>
+          <a routerLink="/auth/profile/{{post?.user?.username}}#{{post?.user?.user_tag}}"
+            class="post__user">{{post.user.username}}#{{post.user.user_tag}}</a>
           <p class="post__content" [innerHTML]="post?.content"></p>
         </div>
+        <div class="post__pin"><i id="{{post.user.username}}#{{post.user.user_tag}}" (click)="pinPost(post)" 
+          [ngClass]="getClass(post)"
+          class="fa-solid fa-thumbtack"></i></div>
       </div>
       <app-post-comments [comments]="post?.comments"></app-post-comments>
     </div>
@@ -17,7 +21,7 @@
   <ng-template #errorTemplate>
     <p class="error">
       {{errorDetail}}
-    </p>  
+    </p>
   </ng-template>
   <ng-container *ngTemplateOutlet="(error || !posts) ? errorTemplate: review"></ng-container>
   <div>

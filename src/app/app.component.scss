@@ -19,10 +19,12 @@ body {
   --clr-danger: #C14040;
   --clr-font:#000;
   --clr-white: #fff;
+  --clr-success:#00ff11;
   background-blend-mode: soft-light;
 }
 
 :root .dark-mode {
+  --clr-success:#306844;
   --clr-font:#fff;
   --clr-grey: #333333;
   --clr-primary: #50b2c0;

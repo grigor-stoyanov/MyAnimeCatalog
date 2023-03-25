@@ -25,15 +25,16 @@ export class SlideInOutDirectiveDirective {
 
   private slideIn(): AnimationMetadata[] {
     return [
-      style({ opacity: 0, transform: 'translateY(-100px)' }),
-      animate('400ms ease-in', style({ opacity: 1, transform: 'none' })),
+      style({ opacity: 0,height:0, transform: 'translateY(-100px)' }),
+      animate('400ms ease-in', style({ opacity: 1,height:'100%' ,transform: 'none' })),
     ];
   }
+  
 
   private slideOut(): AnimationMetadata[] {
     return [
-      style({ opacity: '*', transform: 'none' }),
-      animate('400ms ease-in', style({ opacity: 0, transform: 'translateY(-100px)' })),
+      style({ opacity: 1,height:'100%', transform: 'none' }),
+      animate('400ms ease-in', style({ opacity: 0,height:0, transform: 'translateY(-100px)' })),
     ];
   }
 }

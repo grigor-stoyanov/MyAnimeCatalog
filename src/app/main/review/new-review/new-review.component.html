@@ -3,7 +3,6 @@
     <button type="submit" class="btn-primary btn-review">Post</button>
     <button (click)="dropdownHandler()" type="button" class="btn-primary btn-split"><i
         class="fa-solid fa-angles-down"></i></button>
-        {{hidden|json}}
   </div>
     <ckeditor *ngIf="destroy" (destroyed)="destroy=$event" [hidden]="hidden" SlideInOut [editor]="Editor" [(ngModel)]="model.editorData" name="content" tagName="div" data=""
       class="review__input">

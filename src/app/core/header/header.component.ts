@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.localService.removeData('auth')
-    this.localService.removeSessionData('sauth')
+    this.localService.removeSessionData('auth')
     this.userService.logout().subscribe()
   }
 

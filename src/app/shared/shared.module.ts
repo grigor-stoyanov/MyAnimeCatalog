@@ -11,6 +11,7 @@ import {RouterModule} from "@angular/router";
 import { LoaderComponent } from './loader/loader.component';
 import { SlideInOutDirectiveDirective } from './animation/animation-accordion.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PinnedPostsService } from '../services/storage/pinned-posts.service';
 
 
 @NgModule({
@@ -40,6 +41,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         StarRatingComponent,
         LoaderComponent,
         SlideInOutDirectiveDirective
+    ]
+  ,
+    providers:[
+      PinnedPostsService
     ]
 })
 export class SharedModule {
