@@ -30,7 +30,7 @@ export class AppInterceptor implements HttpInterceptor {
       if (!auth) {
         if (!sauth) {
           this.loaderService.hideLoader()
-          this.router.navigate(['auth/login'])
+          // this.router.navigate(['auth/login'])
           return EMPTY
         }
       }
