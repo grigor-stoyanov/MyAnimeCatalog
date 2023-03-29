@@ -27,7 +27,7 @@ class PostListCreateAPI(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def get_queryset(self):
-        queryset = Post.objects.filter(anime=self.kwargs['pk'])
+        queryset = Post.objects.select_related().filter(anime=self.kwargs['pk'])
         return queryset
 
 
@@ -56,12 +56,4 @@ class CommentCreateGet(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Post.objects.filter(anime=self.kwargs['pk'])
         return queryset
-
-
-
-
-
-
-
-
 

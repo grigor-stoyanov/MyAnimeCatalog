@@ -58,10 +58,10 @@ class GenreModel(models.Model):
     genre = models.CharField(max_length=15)
 
     def __repr__(self):
-        return '<Genre %s>' % self.genre
+        return f'{self.genre}'
 
     def __str__(self):
-        return self.genre
+        return f'{self.genre}'
 
 
 # Create your models here.
@@ -74,6 +74,13 @@ class AnimeModel(models.Model):
     date_ended = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     genres = models.ManyToManyField(GenreModel)
+
+
+class AnimeStats(models.Model):
+    like = models.BooleanField(default=None, blank=True, null=True)
+    rating = models.FloatField(blank=True, null=True, default=0)
+    user = models.ForeignKey(UsersModel, on_delete=models.CASCADE)
+    anime = models.ForeignKey(AnimeModel, on_delete=models.CASCADE)
 
 
 class Post(models.Model):
