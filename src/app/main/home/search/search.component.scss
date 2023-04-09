@@ -9,7 +9,6 @@
 }
 
 #search .search__heading {
-
   color: var(--clr-salmon);
   font-size: var(--ms-scale-6);
   margin-bottom: var(--px-big-1);
@@ -19,6 +18,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
 
 #search .search__form #search-input {
@@ -31,6 +31,7 @@
   border: none;
   line-height: normal;
   text-indent: var(--px-small-4);
+  height: var(--px-big-1);
 }
 
 #search .search__form #search-input::placeholder {
@@ -48,6 +49,7 @@
   font-size: 1vw;
 }
 
+// Don't Uncomment this If you want to Live
 //#search .search__form .search-btn:before {
 //  content: "";
 //  position: absolute;
@@ -59,6 +61,33 @@
 //  right: 100px;
 //}
 
-#search .search__form label{
-  color:var(--clr-darkblue)
+#search .search__form label {
+  color: var(--clr-darkblue);
+}
+
+#search .search__form__menu {
+  position: absolute;
+  border: 1px solid var(--clr-darkblue);
+  width: 80%;
+  height: var(--px-big-5) !important;
+  background-color: var(--clr-bg);
+  top: var(--px-big-1);
+  left: 0;
+  z-index: 99;
+  display: grid;
+  grid-template-rows: var(--px-small-2) auto;
+}
+
+#search .menu__info {
+  color: var(--clr-darkblue);
+  font-size: var(--px-small-2);
+}
+#search .menu__header {
+  font-size: var(--px-big-1);
+  place-self: center;
+  color: var(--clr-darkblue);
+  margin: var(--px-small-3);
+}
+#search .menu__spinner {
+  place-self: center;
 }

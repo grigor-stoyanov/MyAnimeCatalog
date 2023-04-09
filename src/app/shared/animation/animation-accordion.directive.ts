@@ -2,6 +2,9 @@ import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, style } 
 import { AfterContentInit, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
+
+// Generic context menu slide down directive
+// Runs animation synchronously by using 2 flags
 @Directive({
   selector: '[SlideInOut]',
 })
@@ -14,7 +17,9 @@ export class SlideInOutDirectiveDirective {
     const player = factory.create(this.el.nativeElement);
     player.play();
     if(!hidden){
-      this.destroyed.emit(false)
+      setTimeout(()=>
+      this.destroyed.emit(false),400
+      )
     }
   }
 

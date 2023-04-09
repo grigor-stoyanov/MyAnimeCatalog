@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getSearchValue } from '../+store/selectors';
+import { setSearchValue } from '../+store/actions';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+ 
+
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }
