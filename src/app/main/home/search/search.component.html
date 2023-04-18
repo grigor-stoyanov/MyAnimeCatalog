@@ -7,6 +7,7 @@
     method="post"
     action="index-template.html"
   >
+    {{ form.value | json }}
     <label for="search-input" style="display: none">Search</label>
     <div
       name="search-input"
@@ -15,14 +16,27 @@
       (focus)="this.hidden = false; this.destroy = false"
       (blur)="this.hidden = true"
       (keydown)="onKeyDown($event)"
+      (input)="onInput($event)"
       #searchInput
       id="search-input"
       type="text"
+      formControlName="search"
+      ngDefaultControl
     >
-    <div formControlName="chips" ngDefaultControl name="chips" class="chip-container" *ngFor="let chip of chips">
-    <span contenteditable="false" class="chip"> {{ chip }} <i (click)="removeChip(chip)" class="fa-solid fa-xmark"></i></span>
+      <ng-container formArrayName="chips">
+          <div
+            class="chip"
+            name="chip"
+            class="chip-container"
+            *ngFor="let chip of chips.controls; let i = index"
+          >
+          <input [hidden]="true" formControlName="{{i}}">
+            <span contenteditable="false" class="chip">
+              {{chip.value}}
+              <i (click)="removeChip(chip.value)" class="fa-solid fa-xmark"></i></span>
+          </div>
+      </ng-container>
     </div>
-  </div>
 
     <button type="submit" class="btn-primary search-btn">SEARCH</button>
     <div
