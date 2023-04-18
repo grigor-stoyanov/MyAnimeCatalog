@@ -1,13 +1,15 @@
 import { NgModule, Component } from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CarouselComponent} from "./carousel/carousel.component";
-import {CarouselItemComponent} from "./carousel-item/carousel-item.component";
-import {SharedModule} from "../../shared/shared.module";
-import {SearchComponent} from "./search/search.component";
+import { CommonModule } from '@angular/common';
+import { CarouselComponent } from "./carousel/carousel.component";
+import { CarouselItemComponent } from "./carousel-item/carousel-item.component";
+import { SharedModule } from "../../shared/shared.module";
+import { SearchComponent } from "./search/search.component";
 import { HomeComponent } from './home/home.component';
-import {RouterModule, Routes} from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { StoreModule } from '@ngrx/store';
 import { homeFeature } from './+store';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormConfig } from '@rxweb/reactive-form-validators';
 
 
 const routes: Routes = [
@@ -20,12 +22,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [CarouselComponent, CarouselItemComponent, SearchComponent, HomeComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        RouterModule.forChild(routes),
-        StoreModule.forFeature(homeFeature)
-    ],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    SharedModule,
+    RouterModule.forChild(routes),
+    StoreModule.forFeature(homeFeature)
+  ],
   exports: [
     CarouselComponent, CarouselItemComponent, SearchComponent, HomeComponent
   ]
