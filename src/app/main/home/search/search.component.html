@@ -1,17 +1,14 @@
 <section id="search">
   <h1 class="search__heading">Search Your Favourite Titles!!!</h1>
   <form
-    [formGroup]="form"
-    (ngSubmit)="submitSearch()"
+    (submit)="submitSearch()"
     class="search__form"
     method="post"
     action="index-template.html"
   >
-    {{ form.value | json }}
     <label for="search-input" style="display: none">Search</label>
     <div
       name="search-input"
-      contenteditable="true"
       pattern="[a-zA-Z0-9]+"
       (focus)="this.hidden = false; this.destroy = false"
       (blur)="this.hidden = true"
@@ -19,23 +16,20 @@
       (input)="onInput($event)"
       #searchInput
       id="search-input"
-      type="text"
-      formControlName="search"
-      ngDefaultControl
     >
-      <ng-container formArrayName="chips">
-          <div
-            class="chip"
-            name="chip"
-            class="chip-container"
-            *ngFor="let chip of chips.controls; let i = index"
-          >
-          <input [hidden]="true" formControlName="{{i}}">
-            <span contenteditable="false" class="chip">
-              {{chip.value}}
-              <i (click)="removeChip(chip.value)" class="fa-solid fa-xmark"></i></span>
-          </div>
-      </ng-container>
+        <span
+          *ngFor="let genre of genre$ | async"
+          class="chip"
+          >{{ genre }}
+          <i (click)="removeChip('Genre', genre)" class="fa-solid fa-xmark"></i
+        ></span>
+        <span
+          *ngFor="let year of year$ | async"
+          class="chip"
+          >{{ year }}
+          <i (click)="removeChip('Year', year)" class="fa-solid fa-xmark"></i
+        ></span>
+
     </div>
 
     <button type="submit" class="btn-primary search-btn">SEARCH</button>
