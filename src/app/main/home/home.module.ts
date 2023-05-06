@@ -8,8 +8,6 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from "@angular/router";
 import { StoreModule } from '@ngrx/store';
 import { homeFeature } from './+store';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ReactiveFormConfig } from '@rxweb/reactive-form-validators';
 
 
 const routes: Routes = [
@@ -23,7 +21,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [CarouselComponent, CarouselItemComponent, SearchComponent, HomeComponent],
   imports: [
-    ReactiveFormsModule,
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),

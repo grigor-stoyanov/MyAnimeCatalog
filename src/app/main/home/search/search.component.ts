@@ -13,7 +13,7 @@ import { Actions, ofType } from '@ngrx/effects';
 export class SearchComponent implements OnInit {
   hidden = true;
   destroy = true;
-
+  options = ['genre', 'year']
   search$ = this.store.select(getSearchValue)
   genre$ = this.store.select(getGenreOptions)
   year$ = this.store.select(getYearOptions)
@@ -23,23 +23,28 @@ export class SearchComponent implements OnInit {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;
 
   onInput(event: InputEventInit) {
-    const value = this.searchInput.nativeElement.innerText.trim().split('\n').pop()
-
+    const input = this.searchInput.nativeElement
+    // TODO add async dispatching with proper validation
+    const value = input.value.trim().split('\n').pop()
+    input.style.width = (input.value.length + 1) + "ch";
   }
 
-  //TODO Figure out how to prevent deletion of ngFor bindings within div
   onKeyDown(event: KeyboardEvent) {
-    
+
 
     if (event.key == 'Enter') {
       event.preventDefault()
-      const value = this.searchInput.nativeElement.innerText.trim().split(' ').pop()
-
-      // TODO Add Validation and tooltips during typing
+      const input = this.searchInput.nativeElement
+      const input_breakdown = input.value.trim().split(' ')
+      const value = input_breakdown.pop()
       if (value?.includes(':')) {
         const [type, chip] = value.split(':')
+        // TODO add validation before u dispatch the event
         this.store.dispatch(addOption({ by: type, option: chip }))
+        input.value = input_breakdown.join(' ')
+        input.style.width = (input.value.length + 1) + 'ch'
       } else {
+        // This statement should become redundant with NgRx Validation
         return
       }
     }
@@ -55,6 +60,13 @@ export class SearchComponent implements OnInit {
 
   submitSearch() {
     return
+  }
+
+  suggestionHandler(option: string, $event: Event) {
+    $event.preventDefault();
+    const input = this.searchInput.nativeElement;
+    input.value += ` ${option}:`
+    input.style.width = (input.value.length + 1) + "ch";
   }
 
   ngOnInit(): void {

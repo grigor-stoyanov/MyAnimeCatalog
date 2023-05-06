@@ -1,37 +1,31 @@
 <section id="search">
   <h1 class="search__heading">Search Your Favourite Titles!!!</h1>
   <form
+    autocomplete="off"
     (submit)="submitSearch()"
     class="search__form"
-    method="post"
-    action="index-template.html"
   >
     <label for="search-input" style="display: none">Search</label>
-    <div
-      name="search-input"
-      pattern="[a-zA-Z0-9]+"
-      (focus)="this.hidden = false; this.destroy = false"
-      (blur)="this.hidden = true"
-      (keydown)="onKeyDown($event)"
-      (input)="onInput($event)"
-      #searchInput
-      id="search-input"
-    >
-        <span
-          *ngFor="let genre of genre$ | async"
-          class="chip"
-          >{{ genre }}
-          <i (click)="removeChip('Genre', genre)" class="fa-solid fa-xmark"></i
-        ></span>
-        <span
-          *ngFor="let year of year$ | async"
-          class="chip"
-          >{{ year }}
-          <i (click)="removeChip('Year', year)" class="fa-solid fa-xmark"></i
-        ></span>
-
+    <div (click)="searchInput.focus()" class="searchInput">
+      <input
+        id="search-input"
+        name="search-input"
+        (focus)="this.hidden = false; this.destroy = false"
+        (blur)="this.hidden = true"
+        (keydown)="onKeyDown($event)"
+        (input)="onInput($event)"
+        #searchInput
+        onlyLetters
+      />
+      <span *ngFor="let genre of genre$ | async" class="chip"
+        >{{ genre }}
+        <i (click)="removeChip('Genre', genre)" class="fa-solid fa-xmark"></i
+      ></span>
+      <span *ngFor="let year of year$ | async" class="chip"
+        >{{ year }}
+        <i (click)="removeChip('Year', year)" class="fa-solid fa-xmark"></i
+      ></span>
     </div>
-
     <button type="submit" class="btn-primary search-btn">SEARCH</button>
     <div
       *ngIf="!destroy"
@@ -41,10 +35,11 @@
       class="search__form__menu"
     >
       <ul role="list" class="menu__info">
+        <!-- Wrap in a template and load different prompts depending on current input -->
+        <h3>Filter Results by Options</h3>
         Search Options:
-        <li>Genre:...</li>
-        <li>Year:...</li>
-      </ul>
+        <li (mousedown)="suggestionHandler(option,$event)" *ngFor="let option of options">{{option}}: &hellip;</li>
+      </ul> 
       <ng-container
         *ngTemplateOutlet="(isTyping$ | async) ? loader : header"
       ></ng-container>
