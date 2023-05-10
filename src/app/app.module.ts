@@ -59,7 +59,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({ logOnly: !isDevMode() }),
+    // StoreDevtoolsModule.instrument({ logOnly: !isDevMode() }),
     EffectsModule.forRoot([])
   ],
   providers: [
