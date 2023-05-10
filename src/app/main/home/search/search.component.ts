@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, forwardRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getGenreOptions, getSearchValue, getYearOptions } from '../+store/selectors';
-import { debounceTime, fromEvent, map, tap, merge } from 'rxjs';
+import { getGenreOptions, getSearchValue, getYearOptions, getOptionValidation } from '../+store/selectors';
+import { debounceTime, fromEvent, map, tap, merge, filter, withLatestFrom } from 'rxjs';
 import { addOption, removeOption, setSearchValue, typing } from '../+store/actions'
 import { Actions, ofType } from '@ngrx/effects';
 
@@ -17,38 +17,11 @@ export class SearchComponent implements OnInit {
   search$ = this.store.select(getSearchValue)
   genre$ = this.store.select(getGenreOptions)
   year$ = this.store.select(getYearOptions)
+  isValid$ = this.store.select(getOptionValidation)
   // TODO Merge streams when loading is compleete to cancel spinner
   isTyping$ = this.action$.pipe(ofType(typing), map(() => true))
 
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;
-
-  onInput(event: InputEventInit) {
-    const input = this.searchInput.nativeElement
-    // TODO add async dispatching with proper validation
-    const value = input.value.trim().split('\n').pop()
-    input.style.width = (input.value.length + 1) + "ch";
-  }
-
-  onKeyDown(event: KeyboardEvent) {
-
-
-    if (event.key == 'Enter') {
-      event.preventDefault()
-      const input = this.searchInput.nativeElement
-      const input_breakdown = input.value.trim().split(' ')
-      const value = input_breakdown.pop()
-      if (value?.includes(':')) {
-        const [type, chip] = value.split(':')
-        // TODO add validation before u dispatch the event
-        this.store.dispatch(addOption({ by: type, option: chip }))
-        input.value = input_breakdown.join(' ')
-        input.style.width = (input.value.length + 1) + 'ch'
-      } else {
-        // This statement should become redundant with NgRx Validation
-        return
-      }
-    }
-  }
 
   removeChip(type: string, chip: string | number) {
     this.store.dispatch(removeOption({ by: type, option: chip }))
@@ -66,13 +39,40 @@ export class SearchComponent implements OnInit {
     $event.preventDefault();
     const input = this.searchInput.nativeElement;
     input.value += ` ${option}:`
+    this.store.dispatch(setSearchValue({ search: input.value }))
     input.style.width = (input.value.length + 1) + "ch";
   }
 
   ngOnInit(): void {
-    // fromEvent(this.searchInput.nativeElement, 'input')
-    //   .pipe(tap(e => this.store.dispatch(typing())), debounceTime(500), map(e => (e.target as HTMLInputElement).value))
-    //   .subscribe((value) => this.store.dispatch(setSearchValue({ search: value })))
+    const inputElement = this.searchInput.nativeElement
+
+    fromEvent<KeyboardEvent>(inputElement, 'keydown')
+      .pipe(
+        filter((e) => e.key === 'Enter'),
+        withLatestFrom(this.isValid$),
+      ).subscribe(([event, isValid]: [_KeyboardEvent, Boolean]) => {
+        event.preventDefault()
+        if (isValid) {
+          const value = (event.target as HTMLInputElement).value.split(' ')
+          const [type, chip] = value.pop()!.split(':')
+          const search = value.join(' ')
+          inputElement.value = search
+          inputElement.style.width = (search.length +1)+'ch'
+          this.store.dispatch(addOption({ by: type, option: chip }))
+          this.store.dispatch(setSearchValue({ search }))
+        }
+        else {
+          console.log('No')
+        }
+      })
+
+    fromEvent(inputElement, 'input')
+      .pipe(tap(e => {
+        // if the value contains exactly option: provide suggestion
+        this.store.dispatch(typing());
+        inputElement.style.width = (inputElement.value.length + 1) + "ch";
+      }), debounceTime(200), map(e => (e.target as HTMLInputElement).value))
+      .subscribe((value) => this.store.dispatch(setSearchValue({ search: value })))
   }
 
 

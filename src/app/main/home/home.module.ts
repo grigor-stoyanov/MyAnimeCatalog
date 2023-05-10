@@ -25,6 +25,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature(homeFeature)
+    
   ],
   exports: [
     CarouselComponent, CarouselItemComponent, SearchComponent, HomeComponent

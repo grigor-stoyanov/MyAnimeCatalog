@@ -5,7 +5,7 @@ import { IHomeState } from "src/app/interfaces";
 const initialHomeState = {
     search: undefined,
     year: [],
-    genre: []
+    genre: [],
 
 }
 
@@ -31,16 +31,16 @@ export const homeFeature = createFeature(
                 return { ...state }
             }),
             on(removeOption, (state, action) => {
-                const {by,option} = action
-                switch(by){
-                    case 'Year':
-                        return { ...state, year: [...state.year].filter(v=>v!=option) }
+                const { by, option } = action
+                switch (by.toLowerCase()) {
+                    case 'year':
+                        return { ...state, year: [...state.year].filter(v => v != option) }
                         break
-                    case 'Genre':
-                        return { ...state, genre: [...state.genre].filter(v=>v!=option) }
+                    case 'genre':
+                        return { ...state, genre: [...state.genre].filter(v => v != option) }
                         break
                 }
-                return {...state}
+                return { ...state }
             })
         )
 

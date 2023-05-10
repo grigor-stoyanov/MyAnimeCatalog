@@ -6,16 +6,15 @@
     class="search__form"
   >
     <label for="search-input" style="display: none">Search</label>
+    {{isValid$|async}}
     <div (click)="searchInput.focus()" class="searchInput">
       <input
         id="search-input"
         name="search-input"
         (focus)="this.hidden = false; this.destroy = false"
         (blur)="this.hidden = true"
-        (keydown)="onKeyDown($event)"
-        (input)="onInput($event)"
+        value="{{search$|async}}"
         #searchInput
-        onlyLetters
       />
       <span *ngFor="let genre of genre$ | async" class="chip"
         >{{ genre }}
