@@ -4,6 +4,7 @@ import { getGenreOptions, getSearchValue, getYearOptions, getOptionValidation } 
 import { debounceTime, fromEvent, map, tap, merge, filter, withLatestFrom } from 'rxjs';
 import { addOption, removeOption, setSearchValue, typing } from '../+store/actions'
 import { Actions, ofType } from '@ngrx/effects';
+import { lessThanAsyncValidatorExtension } from '@rxweb/reactive-form-validators/validators-extension';
 
 @Component({
   selector: 'app-search',
@@ -35,44 +36,55 @@ export class SearchComponent implements OnInit {
     return
   }
 
-  suggestionHandler(option: string, $event: Event) {
-    $event.preventDefault();
-    const input = this.searchInput.nativeElement;
-    input.value += ` ${option}:`
+  private updateSearchInput(input: HTMLInputElement) {
     this.store.dispatch(setSearchValue({ search: input.value }))
     input.style.width = (input.value.length + 1) + "ch";
   }
 
+  suggestionHandler(option: string, $event: Event, addSuggestion: boolean = false) {
+    $event.preventDefault();
+    const input = this.searchInput.nativeElement;
+    if (!addSuggestion) {
+      input.value += ` ${option}:`
+    }
+    else {
+      const type = input.value.split(' ').pop()?.replace(':', '')!
+      this.store.dispatch(addOption({ by: type, option: option }));
+      input.value = input.value.split(' ').slice(0, -1).join(' ');
+    }
+    this.updateSearchInput(input)
+  }
+
   ngOnInit(): void {
     const inputElement = this.searchInput.nativeElement
-
     fromEvent<KeyboardEvent>(inputElement, 'keydown')
       .pipe(
         filter((e) => e.key === 'Enter'),
         withLatestFrom(this.isValid$),
-      ).subscribe(([event, isValid]: [_KeyboardEvent, Boolean]) => {
+      ).subscribe(([event, { isValid, suggestions }]) => {
+        const value = (event.target as HTMLInputElement).value.split(' ')
         event.preventDefault()
+        console.log(suggestions)
         if (isValid) {
-          const value = (event.target as HTMLInputElement).value.split(' ')
           const [type, chip] = value.pop()!.split(':')
           const search = value.join(' ')
           inputElement.value = search
-          inputElement.style.width = (search.length +1)+'ch'
           this.store.dispatch(addOption({ by: type, option: chip }))
-          this.store.dispatch(setSearchValue({ search }))
+          this.updateSearchInput(inputElement)
         }
-        else {
+        else if (suggestions) {
           console.log('No')
         }
+        
       })
 
+    // TODO Here we will do request by dispatching with an effect
     fromEvent(inputElement, 'input')
       .pipe(tap(e => {
-        // if the value contains exactly option: provide suggestion
         this.store.dispatch(typing());
-        inputElement.style.width = (inputElement.value.length + 1) + "ch";
+        inputElement.style.width = (inputElement.value + 1) + "ch";
       }), debounceTime(200), map(e => (e.target as HTMLInputElement).value))
-      .subscribe((value) => this.store.dispatch(setSearchValue({ search: value })))
+      .subscribe((v) => this.store.dispatch(setSearchValue({ search: v })))
   }
 
 

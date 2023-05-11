@@ -20,11 +20,11 @@ export const homeFeature = createFeature(
             }),
             on(addOption, (state, action) => {
                 const { by, option } = action
-                switch (by) {
-                    case 'Year':
+                switch (by.toLowerCase()) {
+                    case 'year':
                         return { ...state, year: [...state.year, parseInt(option)] }
                         break
-                    case 'Genre':
+                    case 'genre':
                         return { ...state, genre: [...state.genre, option] }
                         break
                 }

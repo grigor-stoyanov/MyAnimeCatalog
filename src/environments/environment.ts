@@ -5,7 +5,9 @@
 
 export const environment = {
   production: false,
-  apiURL:'http://localhost:8000/'
+  // Fix Broken Environment Being Used During Deployment
+  // apiURL:'https://grigorstoyanov.pythonanywhere.com/'
+  apiURL: 'http://localhost:8000/'
 };
 
 /*
