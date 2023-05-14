@@ -22,7 +22,6 @@
 }
 
 #search .search__form .searchInput {
-  position: relative;
   background-color: var(--clr-grey);
   color: var(--clr-font);
   border-radius: var(--px-big-1);
@@ -155,4 +154,31 @@
 
 #search .search__form__menu .menu__info li:hover {
   background: var(--clr-grey);
+}
+
+#search .tooltip {
+  position: absolute;
+  top: calc(-1*var(--px-big-1));
+  left: 25%;
+  transform: translateX(-50%);
+  display: inline-block;
+  background-color: var(--clr-salmon);
+  border-radius: 4px;
+  padding: 8px;
+  color: var(--clr-font);
+  font-size: var(--px-small-2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#search .tooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: 0;
+  width: 0;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 12px 12.5px 0 12.5px;
+  border-color: var(--clr-salmon) transparent transparent transparent;
 }

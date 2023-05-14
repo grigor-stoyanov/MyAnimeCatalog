@@ -1,13 +1,20 @@
 <section id="search">
   <h1 class="search__heading">Search Your Favourite Titles!!!</h1>
-  {{ (isValid$ | async)?.suggestions | json }}
   <form autocomplete="off" (submit)="submitSearch()" class="search__form">
     <label for="search-input" style="display: none">Search</label>
 
     <div (click)="searchInput.focus()" class="searchInput">
+      <div
+        class="tooltip"
+        *ngIf="(isValid$ | async)?.validationMessage && showTooltip"
+      >
+        <p>{{ (isValid$ | async)?.validationMessage }}</p>
+      </div>
       <input
         id="search-input"
         name="search-input"
+        (focus)="this.hidden = false; this.destroy = false"
+        (blur)="this.hidden = true"
         value="{{ search$ | async }}"
         #searchInput
       />
@@ -21,12 +28,18 @@
       ></span>
     </div>
     <button type="submit" class="btn-primary search-btn">SEARCH</button>
-    <div class="search__form__menu">
+    <div
+      *ngIf="!destroy"
+      (destroyed)="destroy = !$event"
+      [hidden]="!hidden"
+      SlideInOut
+      class="search__form__menu"
+    >
       <ul role="list" class="menu__info">
         <!-- Wrap in a template and load different prompts depending on current input -->
         <div class="sticky__container">
-          <h3>Filter Results by Options</h3></div
-        >
+          <h3>Filter Results by Options</h3>
+        </div>
         <ng-container
           *ngTemplateOutlet="
             !(isValid$ | async)?.suggestions?.length
@@ -36,9 +49,7 @@
         >
         </ng-container>
         <ng-template #validOptions>
-          <div class="sticky__container"
-            ><p>Search Options:</p></div
-          >
+          <div class="sticky__container"><p>Search Options:</p></div>
 
           <li
             (mousedown)="suggestionHandler(option, $event)"
@@ -48,12 +59,10 @@
           </li>
         </ng-template>
         <ng-template #validSuggestions>
-          <div class="sticky__container"
-            ><p>Examples:</p></div  
-          >
+          <div class="sticky__container"><p>Examples:</p></div>
 
           <li
-            (mousedown)="suggestionHandler(option, $event,true)"
+            (mousedown)="suggestionHandler(option, $event, true)"
             *ngFor="let option of (isValid$ | async)?.suggestions"
           >
             {{ option }}

@@ -19,6 +19,8 @@ export class SearchComponent implements OnInit {
   genre$ = this.store.select(getGenreOptions)
   year$ = this.store.select(getYearOptions)
   isValid$ = this.store.select(getOptionValidation)
+  showTooltip = false;
+
   // TODO Merge streams when loading is compleete to cancel spinner
   isTyping$ = this.action$.pipe(ofType(typing), map(() => true))
 
@@ -61,28 +63,28 @@ export class SearchComponent implements OnInit {
       .pipe(
         filter((e) => e.key === 'Enter'),
         withLatestFrom(this.isValid$),
-      ).subscribe(([event, { isValid, suggestions }]) => {
+      ).subscribe(([event, { isValid }]) => {
         const value = (event.target as HTMLInputElement).value.split(' ')
         event.preventDefault()
-        console.log(suggestions)
+
         if (isValid) {
           const [type, chip] = value.pop()!.split(':')
           const search = value.join(' ')
           inputElement.value = search
           this.store.dispatch(addOption({ by: type, option: chip }))
           this.updateSearchInput(inputElement)
+        } else {
+          this.showTooltip = true;
         }
-        else if (suggestions) {
-          console.log('No')
-        }
-        
+
       })
 
     // TODO Here we will do request by dispatching with an effect
     fromEvent(inputElement, 'input')
       .pipe(tap(e => {
         this.store.dispatch(typing());
-        inputElement.style.width = (inputElement.value + 1) + "ch";
+        this.showTooltip = false;
+        inputElement.style.width = ((e.target as HTMLInputElement).value.length + 1) + "ch";
       }), debounceTime(200), map(e => (e.target as HTMLInputElement).value))
       .subscribe((v) => this.store.dispatch(setSearchValue({ search: v })))
   }

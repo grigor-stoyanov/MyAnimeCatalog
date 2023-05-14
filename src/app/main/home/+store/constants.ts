@@ -1,5 +1,5 @@
 const START_YEAR = 1917;
-const CURRENT_YEAR = new Date().getFullYear()
+export const CURRENT_YEAR = new Date().getFullYear()
 export const YEARS_ARRAY = Array.from({ length: CURRENT_YEAR - START_YEAR + 1 }, (_, i) => (START_YEAR + i).toString())
 
 export const GENRES = [
