@@ -93,9 +93,6 @@ MIT
 @ngrx/store
 MIT
 
-@ngrx/store-devtools
-MIT
-
 @rxweb/reactive-form-validators
 MIT
 
