@@ -28,7 +28,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
 
-\
+
 
 class AnimeSerializer(ModelSerializer):
     total_likes = serializers.SerializerMethodField()
