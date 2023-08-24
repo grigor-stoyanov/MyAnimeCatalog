@@ -34,7 +34,9 @@ Auth Module is responsible for all authentication and user realted views.
 Main is comprised of SubModules with components relating to their respective views.  
 Each SubModule has its own base RootRoute and ChildrenRoutes.  
 
-.
+<pre>
+  <code>
+    .
 ├── src
 │   ├── app
 │   │   ├── auth
@@ -72,6 +74,9 @@ Each SubModule has its own base RootRoute and ChildrenRoutes.
 │   ├── assets
 │   └── environments
 └── temp
+  </code>
+</pre>
+
 
 
 ## Technologies
